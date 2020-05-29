@@ -60,5 +60,30 @@ public:
         return result;
     }
 };
+/////////////////////////////////////
+Hash table, using map
 
-I am submitting this 1040-x because I am a F-1 status student currently studying in Auburn University at Montgomery and suppose to use a form 1040-NR/1040-NR-EZ to file my 2019 tax return, but unfortunately I filed the form 1040 due to the lack of tax knowledge. I did not realize my mistake until I received a stimulus check which I am not qualify for. I have returned the stimulus check back to Memphis Refund Inquiry Unit. Now I am doing this amended return to make a correction for my tax return status.
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int, int> mymap;
+        vector<int> result;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            mymap.emplace(nums.at(i), i);
+        }
+        
+        for (int i = 0; i < nums.size(); i++)
+        {
+            auto mit = mymap.find(target - nums.at(i));
+            if(mit != mymap.end() && i != mit -> second)//can't use (.), need to use (->)
+            {
+                result.push_back(i);
+                result.push_back(mit->second);
+                break;
+            }
+        }
+        return result;
+
+    }
+};
