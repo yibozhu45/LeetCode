@@ -3,3 +3,4 @@ A hash table is a data structure which is used to store key-value pairs.
 When the problem needs two "for" loop to solve, we can use hash table. 
 
 In C++, map will work.
+For example: we can put vector value and index in a map as mp<value, index>
