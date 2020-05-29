@@ -1,0 +1,28 @@
+false only need one, true, all should be true.
+
+class Solution {
+public:
+    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
+        vector<bool> result(candies.size());//initial all is false
+        for (int i = 0; i < candies.size(); i++)
+        {
+            for (int j = 0; j < candies.size(); j++)
+            {
+                if(candies[i] + extraCandies < candies[j])
+                {
+                    result[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        for(int i = 0; i < result.size(); i++)
+        {
+            if(result[i] == false)
+                result[i] = true;
+            else
+                result[i] = false;
+        }
+        return result;
+    }
+};

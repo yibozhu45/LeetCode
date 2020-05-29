@@ -1,0 +1,64 @@
+oop needs to initiate object
+vector1 = vector2; works
+/////////////////////////////////
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target)
+    {
+        vector<int> result;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            for (int x = i + 1; x < nums.size(); x ++)
+            {
+                if(target - nums[i] == nums[x])
+                    result = {i, x};
+            }
+        }
+        return result;
+    }
+};
+
+
+int main()
+{
+    vector<int> vect = {2,7,11,15};
+    int target = 26;
+    
+    Solution solution;
+    vector<int> result = solution.twoSum(vect, target);
+    
+    for(int i = 0; i < result.size(); i++)
+    {
+        cout << result[i] << " ";
+    }
+    
+}
+//////////////////////////////////////
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target)
+    {
+        int indice1, indice2;
+        vector<int> result;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            int s = target - nums[i];
+            for (int x = i + 1; x < nums.size(); x ++)
+            {
+                if(s == nums[x])
+                {
+                    indice1 = i;
+                    indice2 = x;
+                }
+                result = {indice1, indice2};
+            }
+        }
+        return result;
+    }
+};
+
+I am submitting this 1040-x because I am a F-1 status student currently studying in Auburn University at Montgomery and suppose to use a form 1040-NR/1040-NR-EZ to file my 2019 tax return, but unfortunately I filed the form 1040 due to the lack of tax knowledge. I did not realize my mistake until I received a stimulus check which I am not qualify for. I have returned the stimulus check back to Memphis Refund Inquiry Unit. Now I am doing this amended return to make a correction for my tax return status.
