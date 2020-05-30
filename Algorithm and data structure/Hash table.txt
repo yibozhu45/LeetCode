@@ -1,3 +1,6 @@
+https://www.geeksforgeeks.org/unordered_map-in-cpp-stl/
+(Unordered_map: Internally unordered_map is implemented using Hash Table, the key provided to map are hashed into indices of hash table)
+
 A hash table is a data structure which is used to store key-value pairs.
 
 When the problem needs two "for" loop to solve, we can use hash table. 
