@@ -1,0 +1,63 @@
+
+class Solution {
+public:
+    int countCharacters(vector<string>& words, string chars) {
+       
+        int sum = 0;
+        
+       map<char, int> mp;// create map for chars, map's value is the occurrences of each key
+       for(int j = 0; j < chars.size(); j++)
+       {
+           auto m = mp.find(chars[j]);// m pointer, point to map
+           if(m != mp.end())
+           {
+               m -> second += 1;
+           }
+           else
+           {
+               mp[chars[j]] = 1;
+           }
+       }
+        
+        for (int i = 0; i < words.size(); i++)
+       {
+           map<char, int> mp1 = mp;
+           string s = words[i];
+           int count = s.size();
+           
+           for(int i = 0; i < s.size(); i++)//for each word
+           {
+               auto m = mp1.find(s[i]);
+               if(m != mp1.end())//character inside the map
+               {
+                   if(m -> second != 0)//still have characters left
+                   {
+                       m -> second--;//use one character, so deduct one.
+                       count--;
+                   }
+                   else
+                       break;
+               }
+               else
+               {
+                   break;
+               }
+           }
+           
+           if(count == 0)//all the characters in the word can be found and deducted
+           {
+               sum += s.size();
+           }
+       }
+        return sum;
+    }
+};
+
+///////////////////////////////////////////////
+    map<char, int> mp;
+    
+    for(auto m : mp)//m : pair<char, int>
+    {
+        cout << m.first << " " << m.second << endl;
+    }
+
