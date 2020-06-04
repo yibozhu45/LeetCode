@@ -1,0 +1,49 @@
+* in map<int, int>, key will be sorted, so it doesn't matter the order to create value.
+
+* vector<int> v, if don't give size to the "v", can't use v[0] = "...";
+
+First:
+
+class Solution {
+public:
+    vector<int> decompressRLElist(vector<int>& nums) {
+        vector<int> fres;
+        vector<int> values;
+        
+        vector<int> result;
+        for(int i = 0; i < nums.size()/2; i++)
+        {
+            fres.push_back(nums[2*i]);
+            values.push_back(nums[2*i + 1]);
+        }
+        
+        for(int i = 0; i < values.size(); i++)
+        {
+            while(fres[i] != 0)
+            {
+                result.push_back(values[i]);
+                fres[i]--;
+            }
+        }
+        
+        return result;
+    }
+};
+
+Second:
+
+class Solution {
+public:
+    vector<int> decompressRLElist(vector<int>& nums) {  
+        vector<int> result;
+        
+        for(int i = 0; i < nums.size()/2; i++)
+        {
+            for(int j = 0; j < nums[2*i]; j++)//frequencies
+            {
+                result.push_back(nums[2*i + 1]);
+            }
+        }
+        return result;
+    }
+};
