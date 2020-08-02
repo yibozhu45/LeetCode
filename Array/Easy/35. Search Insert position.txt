@@ -1,5 +1,5 @@
 C++:
-return cannot include in kid's "{}"
+return value cannot include in kid's "{}"
 
 Mine:
 
