@@ -1,0 +1,25 @@
+idea: store the element at the end in num then delete it then insert at the beginning
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int num;
+        for(int i = 0; i < k; i++)//build a new array
+        {
+            num = nums[nums.size()-1];
+            nums.pop_back();
+            nums.insert(nums.begin(), num);
+        } 
+    }
+};
+
+//////////////////////////////////////////////////////////////////////////////////////
+Math:
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        vector<int> temp = nums;
+        for(int i = 0; i < nums.size(); i++) {
+            nums[(i + k) % nums.size()] = temp[i];
+        }
+    }
+};
