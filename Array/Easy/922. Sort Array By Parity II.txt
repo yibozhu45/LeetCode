@@ -1,0 +1,54 @@
+idea: store the original one in two new array (odd and even), then store in the array result separately.
+
+class Solution {
+public:
+    vector<int> sortArrayByParityII(vector<int>& A) {
+        vector<int> result;
+        vector<int> odd;
+        vector<int> even;
+        
+        for(int i = 0; i < A.size(); i++)
+        {
+            if(A[i]%2 == 0)
+            {
+                even.push_back(A[i]);
+            }
+            else
+            {
+                odd.push_back(A[i]);
+            }
+        }
+        
+        for(int i = 0; i < A.size()/2; i++)
+        {
+            result.push_back(even[i]);
+            result.push_back(odd[i]);
+        }
+        return result;
+    }
+};
+
+////////////////////////////////////////////////////////////
+idea: read a element, store in the new array result directly
+class Solution {
+public:
+    vector<int> sortArrayByParityII(vector<int>& A) {
+        vector<int> result(A.size(), 0);//initialize the array with size and value
+        int even = 0; int odd = 1;
+        for(int i = 0; i < A.size(); i++)
+        {
+            if(A[i]%2 == 0)
+            {
+                result[even] = A[i];
+                even += 2;
+            }
+            else
+            {
+                result[odd] = A[i];
+                odd += 2;
+            }
+        }
+        
+        return result;
+    }
+};
