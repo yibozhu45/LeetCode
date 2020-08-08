@@ -1,0 +1,99 @@
+Use flag to make decision
+
+class Solution {
+public:
+    bool hasGroupsSizeX(vector<int>& deck) {
+        map<int, int> mp;
+        for(int i = 0; i < deck.size(); i++)
+        {
+            mp[deck[i]]++;
+        }
+        
+        //initialize num
+        auto pointer = mp.begin();
+        int num = pointer->second;
+        
+        //find the smallest frequency number
+        for(auto it : mp)
+        {
+            if(it.second < num)
+            {
+                num = it.second;
+            }
+        }
+        
+        //num less than 2, false
+        if(num < 2) return false;
+        
+        for(int i = 2; i <= num; i++)
+        {
+            bool flag = true;
+            for(auto it : mp)
+            {
+                if(it.second % i != 0)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            
+            if(flag) return true;
+        }
+
+        return false;
+    }
+};
+
+//////////////////////////////////////////////
+improvement: store all possible num in vector nums
+
+class Solution {
+public:
+    bool hasGroupsSizeX(vector<int>& deck) {
+        map<int, int> mp;
+        for(int i = 0; i < deck.size(); i++)
+        {
+            mp[deck[i]]++;
+        }
+        
+        //initialize num
+        auto pointer = mp.begin();
+        int num = pointer->second;
+        
+        //find the smallest frequency number
+        for(auto it : mp)
+        {
+            if(it.second < num)
+            {
+                num = it.second;
+            }
+        }
+        
+        //num less than 2, false
+        if(num < 2) return false;
+        
+        vector<int> nums;
+        for(int i = 2; i <= num; i++)
+        {
+            if(num % i == 0)
+                nums.push_back(i);
+        }
+        
+        for(auto i : nums)
+        {
+            bool flag = true;
+            for(auto it : mp)
+            {
+                if(it.second % i != 0)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            
+            if(flag) return true;
+        }
+
+        return false;
+    }
+};
