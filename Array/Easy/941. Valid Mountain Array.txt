@@ -1,0 +1,71 @@
+not hard, just need to consider many different conditions 
+class Solution {
+public:
+    bool validMountainArray(vector<int>& A) {
+        if(A.size() < 3) return false;
+        
+        //check whether the array has increasing part
+        if(A[0] >= A[1]) return false;
+        
+        int top = A[0];
+        int index = 0;
+        
+        bool flag = true;
+        //find the top
+        for(int i = 1; i < A.size(); i++)
+        {
+            if(top < A[i])
+            {
+                top = A[i];
+            }
+            else if (top == A[i])
+            {
+                flag = false;
+                break;
+            }
+            else
+            {
+                index = i;
+                break;
+            }
+        }
+        
+        //check whether the array has decreasing part
+        if(index == A.size()) flag = false;
+            
+        for(int i = index; i < A.size(); i++)
+        {
+            if(top > A[i])
+            {
+                top = A[i];
+            }
+            else if(top == A[i])
+            {
+                flag = false;
+                break;
+            }
+            else
+            {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+};
+
+//clean code
+bool validMountainArray(vector<int>& A) {
+
+		if(A.size() == 0)
+			return false;
+		int i = 0;
+		while(i < A.size() - 1 && A[i] < A[i+1])
+			i++;
+		if(i == 0 || i == A.size() - 1)
+			return false;
+		while(i < A.size() - 1 && A[i] > A[i+1])
+			i++;
+		return i == A.size() - 1 ? true : false;
+    
+}
