@@ -1,0 +1,90 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        map<int, int> mp;
+        vector<int> Nums;
+        
+        for(int i = 0; i < nums.size(); i++)
+        {
+            mp[nums[i]]++;
+        }
+        
+        for(auto it : mp)
+        {
+            Nums.push_back(it.first);
+        }
+        
+        if(Nums.size() < 3)
+        {
+            return *max_element(Nums.begin(), Nums.end());
+        }
+        else
+        {
+            int one = *max_element(Nums.begin(), Nums.end());
+            remove(Nums.begin(), Nums.end(), one);
+            Nums.pop_back(); 
+            
+            int two = *max_element(Nums.begin(), Nums.end());
+            remove(Nums.begin(), Nums.end(), two);
+            Nums.pop_back(); 
+        }
+        
+        return Nums[Nums.size() -1];
+
+    }
+};
+///////////////////////////////////////////////////////////////////////////////////
+Improvement:
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        map<int, int> mp;
+        vector<int> Nums;
+        
+        for(int i = 0; i < nums.size(); i++)
+        {
+            mp[nums[i]]++;
+        }
+        
+        for(auto it : mp)
+        {
+            Nums.push_back(it.first);
+        }
+        
+        int one = Nums[0];
+        int two = 0, three = 0;
+        
+        if(Nums.size() < 3)
+        {
+            return *max_element(Nums.begin(), Nums.end());
+        }
+        else
+        {
+        
+        if(one > Nums[1]) two = nums[1];
+        else{
+            two = one;
+            one = Nums[1];
+        }
+            
+        for(int i = 2; i < Nums.size(); i++)
+        {
+            if(one < Nums[i])
+            {
+                three = two;
+                two = one;
+                one = Nums[i];
+            }
+            else if(Nums[i] < one && Nums[i] > two)
+            {
+                three = two;
+                two = Nums[i];
+            }
+            else three = Nums[i];
+        }
+        return three;
+            
+        }
+        
+    }
+};
