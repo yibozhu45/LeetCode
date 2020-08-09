@@ -1,3 +1,12 @@
+Swap values in vector:
+https://stackoverflow.com/questions/6224830/c-trying-to-swap-values-in-a-vector
+
+We can swap based on the objects contents:
+std::swap(v[0],v[1]);
+
+Or swap based on the underlying iterator:
+std::iter_swap(v.begin(),v.begin()+1);
+//////////////////////////////////////////////////////////////////////////////////
 Difference between std::remove and vector::erase for vectors
 https://www.geeksforgeeks.org/difference-between-stdremove-and-vectorerase-for-vectors/
 
