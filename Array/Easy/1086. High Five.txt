@@ -1,0 +1,71 @@
+Integer division:
+If both operands are integers, C++ performs integer division. That means any fractional part of the answer is discarded, making the result an integer. 
+
+四舍五入的做法：
+int(double / 3 + 0.5)
+/////////////////////////////////////////////////////////
+class Solution {
+public:
+    vector<vector<int>> highFive(vector<vector<int>>& items) {
+        vector<vector<int>> result;
+        
+        map<int, int> mp;
+        for(int i = 0; i < items.size(); i++)
+        {
+            mp[items[i][0]]++;
+        }
+            
+        for(auto it : mp)
+        {
+            vector<int> scores;
+            for(int i = 0; i < items.size(); i++)
+            {
+                if(it.first == items[i][0])
+                {
+                    scores.push_back(items[i][1]);
+                }
+            }
+            sort(scores.begin(), scores.end());
+            
+            int time = 0;
+            int index = scores.size() -1;
+            int sum = 0;
+            int average = 0;
+            while(time < 5)
+            {
+                sum += scores[index];
+                index--;
+                time++;
+            }
+
+            average = sum/5;
+            vector<int> student;
+            student.push_back(it.first);
+            student.push_back(average);
+            result.push_back(student);
+        }
+        
+        
+        return result;
+    }
+};
+/////////////////////////////////////////////////////////
+Improvement:
+
+class Solution {
+public:
+    vector<vector<int>> highFive(vector<vector<int>>& items) {
+        vector<vector<int>>res;
+       
+        map<int,vector<int>>m;
+        for(int i=0;i<items.size();i++)
+        m[items[i][0]].push_back(items[i][1]);
+        
+        for(auto [i,v]:m)
+        {
+            partial_sort(v.begin(),v.begin()+5,v.end(),greater<int>());
+            res.push_back({i,(v[0]+v[1]+v[2]+v[3]+v[4])/5});
+        }
+        return res;
+    }
+};
