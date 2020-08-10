@@ -1,3 +1,46 @@
+
+Initialize a two-dimensional vector in C++
+
+https://www.techiedelight.com/initialize-two-dimensional-vector-cpp/
+
+1.
+std::vector<std::vector<int>> matrix(M, std::vector<int>(N, default_value));
+
+2. push_back() function--push_back(vector)
+#include <iostream>
+#include <vector>
+
+#define M 3
+#define N 4
+
+int main()
+{
+	// specify default value to fill the vector elements
+	int default_value = 1;
+
+	// instantiate vector object of type std::vector<int> and
+	// use push_back() function to resize it
+	std::vector<std::vector<int>> matrix;
+	for (int i = 0; i < M; i++)
+	{
+		// construct a vector of ints with given default value
+		std::vector<int> v;
+		for (int j = 0; j < N; j++)
+			v.push_back(default_value);
+
+		// push back above one-dimensional vector
+		matrix.push_back(v);
+	}
+
+	// print the two-dimensional vector
+
+	return 0;
+}
+///////////////////////////////////////////////////////////////////////////////////
+Vector partial_sort
+
+https://www.geeksforgeeks.org/stdpartial_sort-in-cpp/
+//////////////////////////////////////////////////////////////////////////////////
 Swap values in vector:
 https://stackoverflow.com/questions/6224830/c-trying-to-swap-values-in-a-vector
 
