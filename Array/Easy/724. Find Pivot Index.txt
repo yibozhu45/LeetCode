@@ -1,0 +1,75 @@
+idea: calculate sum right and left then compare O(n^2)
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        int index;
+        bool flag = false;
+        
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        
+        for(int i = 0; i < nums.size(); i++)
+        {
+            int right = i;
+            int sum_right = 0;
+            int left = i;
+            int sum_left = 0;
+            
+            while(left > 0)
+            {
+                left--;
+                sum_left += nums[left];
+            }
+            
+            sum_right = sum - nums[i] - sum_left;
+            
+            if(sum_right == sum_left)
+            {
+                flag = true;
+                index = i;
+                break;
+            }
+        }
+        
+        if(flag) return index;
+        else return -1;
+        
+    }
+};
+/////////////////////////////////////////////////////////
+O(n)
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        int index;
+        bool flag = false;
+        
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        
+        int sum_left = 0;
+        int sum_right = 0;
+        
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(i == 0)
+            {
+                sum_right = sum - nums[0];
+            }
+            else
+            {
+                sum_left += nums[i - 1];
+                sum_right = sum - sum_left - nums[i];
+            }
+            
+            if(sum_left == sum_right)
+            {
+                flag = true;
+                index = i;
+                break;
+            }
+        }
+        
+        if(flag) return index;
+        else return -1;
+        
+    }
+};
