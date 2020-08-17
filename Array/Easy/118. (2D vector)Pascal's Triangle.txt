@@ -1,0 +1,40 @@
+////////////////////////////////////////////////////////////////////////
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> result;
+        
+        if(numRows == 0)
+            return result;
+        
+        vector<int> one;
+        if(numRows == 1) 
+        {
+            //1
+            one.push_back(1);
+            result.push_back(one);
+            return result;
+        }
+        
+         //1
+        one.push_back(1);
+        result.push_back(one);
+           
+        for(int i = 2; i <= numRows; i++)
+        {
+            vector<int> two;
+            two.push_back(1);
+            for(int j = 0; j < one.size() - 1; j++)
+            {
+                int sum = one[j] + one[j+1];
+                two.push_back(sum);
+            }
+            two.push_back(1);
+            result.push_back(two);
+            
+            one.clear();
+            one = two;
+        }
+        return result;
+    }
+};
