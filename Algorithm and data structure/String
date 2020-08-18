@@ -4,3 +4,11 @@ s.erase(size_t pos = 0, size_t len = npos);
 iterator erase (iterator p);
 iterator erase (iterator first, iterator last);
 //////////////////////////////////////////////////
+String insert
+http://www.cplusplus.com/reference/string/string/insert/
+
+//////////////////////////////////////////////////
+String find
+http://www.cplusplus.com/reference/string/string/find/
+std::size_t found = str.find(str2);
+//////////////////////////////////////////////////
