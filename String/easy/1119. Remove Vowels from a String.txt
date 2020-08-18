@@ -1,0 +1,52 @@
+Delete a character from string:
+string s;
+s.erase(size_t pos = 0, size_t len = npos);
+iterator erase (iterator p);
+iterator erase (iterator first, iterator last);
+
+when delete a character from string, the size of string changed, but index i not, so if delete a character needs to minus 1 from index.
+////////////////////////////////////////////////////////
+class Solution {
+public:
+    string removeVowels(string S) {
+        for(int i = 0; i < S.size(); i++)
+        {
+            if(S[i] == 'a') {
+                S.erase(i, 1);
+                i--;
+            }
+            else if(S[i] == 'e') {
+                S.erase(i, 1);
+                i--;
+            }                     
+            else if(S[i] == 'i') {
+                S.erase(i, 1);
+                i--;
+            } 
+            else if(S[i] == 'o') {
+                S.erase(i, 1);
+                i--;
+            }
+            else if(S[i] == 'u') {
+              S.erase(i, 1); 
+                i--;
+            }
+        }
+        return S;
+    }
+};
+///////////////////////////////////////////////////////
+class Solution {
+public:
+    string removeVowels(string S) {
+        set<char> set={'a','e','i','o','u','A','E','I','O','U'};
+        for(int i=0;i<S.size();)
+        {
+            if(set.find(S[i])!=set.end())
+                S.erase(i,1);
+            else 
+                i++;
+        }
+        return S;
+    }
+};
