@@ -1,9 +1,3 @@
-Delete a character from string:
-string s;
-s.erase(size_t pos = 0, size_t len = npos);
-iterator erase (iterator p);
-iterator erase (iterator first, iterator last);
-
 when delete a character from string, the size of string changed, but index i not, so if delete a character needs to minus 1 from index.
 ////////////////////////////////////////////////////////
 class Solution {
