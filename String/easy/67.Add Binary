@@ -1,0 +1,52 @@
+char is just a 1 byte integer.
+
+You can utilize the fact that the character encodings for digits are all in order from 48 (for '0') to 57 (for '9'). This holds true for ASCII, UTF-x and practically all other encodings (see comments below for more on this).
+
+Therefore the integer value for any digit is the digit minus '0' (or 48).
+char c = '1';
+int i = c - '0'; // i is now equal to 1, not '1'
+
+char c = '1';
+int i = c - 48; // i is now equal to 1, not '1'
+
+///////////////////////////////////////////////////////////////////////
+string i = '1';// error can't convert char to string
+string i = "1"; correct
+///////////////////////////////////////////////////////////////////////
+string i = "a";
+int i = 4;// error, re-initialize is not allowed
+///////////////////////////////////////////////////////////////////////
+https://www.includehelp.com/stl/convert-binary-string-to-integer-using-stoi-function-in-cpp-stl.aspx
+string a = "11111";
+int ai = stoi(a, 0, 2); 0-default value/ 2 for binary
+but stoi can't convert very long string a.
+//////////////////////////////////////////////////////////////////////
+https://www.geeksforgeeks.org/program-decimal-binary-conversion/
+Program for Decimal to Binary string Conversion
+/////////////////////////////////////////////////////////////////////
+solution:
+class Solution {
+public:
+    string addBinary(string a, string b) {
+      int carry = 0 ;
+        string result ="";
+        int al=a.length();
+        int bl=b.length();
+        int i=0 ;
+        while(i<al || i< bl || carry!=0){
+                  int x =0 ;
+            if(i<al && (a[al-1-i]=='1')) x=1 ;
+               int y=0 ;
+            if(i<bl && (b[bl-1-i]=='1')) y=1 ;
+            int c=(x+y+carry)%2 ;
+            
+            
+            result=to_string(c)+result;//manage the order of input
+            carry=(x+y+carry)/2 ;
+            i++;
+            
+        }
+        return result ;
+                                                                  
+    }
+};
