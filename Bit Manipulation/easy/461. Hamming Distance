@@ -1,0 +1,44 @@
+XOR with set bits
+///////////////////////////////////////////////////////////////////////////
+If do bit manipulation, have to use int n to store the number then do n^i or others. If use 5&1 will have error.
+
+n = n/2 works and same way as n = n>>1;
+///////////////////////////////////////////////////////////////////////////
+class Solution {
+public:
+int hammingDistance(int x, int y) {
+    int n = x^y;
+    int i = 1;
+    int a = n & i;
+    int count = 0;
+    
+    while(n != 0)
+    {
+        a = n&i;
+        if(a == 1) count++;
+        n = n/2;
+        
+    }
+    
+    return count;
+    }
+};
+///////////////////////////////////////////////////////////////////////////
+class Solution {
+public:
+    int hammingDistance(int x, int y) 
+    {
+        int bitMask = 0x01;//smart move;
+        int result = x ^ y;
+        int dist = 0;
+        for(int i=0; i < 32;++i)//int is 32-bit
+        {
+            if ( result & bitMask )
+                ++dist;
+            result = result >>1;
+        }
+        return dist;
+        
+    }
+};
+
