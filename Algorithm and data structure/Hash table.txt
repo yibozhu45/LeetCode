@@ -7,3 +7,5 @@ When the problem needs two "for" loop to solve, we can use hash table.
 
 In C++, map will work.
 For example: we can put vector value and index in a map as mp<value, index>
+
+map find() only can be used to find key, can't be used to find value.
