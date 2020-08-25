@@ -1,0 +1,26 @@
+count how many 1 bits in the array
+
+__builtin_popcount(x): This function is used to count the number of one’s(set bits) in an integer.
+/////////////////////////////////////
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int i = 1;
+        int count = 0;
+        while(n != 0)
+        {
+            if(n & i) count++;
+            n = n >> 1;
+        }
+        
+        return count;
+    }
+};
+/////////////////////////////////////
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+    
+        return __builtin_popcount(n);
+    }
+};
