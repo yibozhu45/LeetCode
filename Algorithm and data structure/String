@@ -12,3 +12,4 @@ String find O(N)
 http://www.cplusplus.com/reference/string/string/find/
 std::size_t found = str.find(str2);
 //////////////////////////////////////////////////
+In string, pay attention to " " and ' ', it's different and can trigger error
