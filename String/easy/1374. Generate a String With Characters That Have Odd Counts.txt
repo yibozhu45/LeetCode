@@ -1,0 +1,26 @@
+idea: even number = odd number + odd number
+      odd number = odd number
+///////////////////////////////////////////////////
+class Solution {
+public:
+    string generateTheString(int n) {
+        string result = "a";
+        
+        if(n % 2 == 0)
+        {
+            for(int i = 1; i < n; i++)
+            {
+                result += "b";
+            }
+        }
+        else
+        {
+            for(int i = 1; i < n; i++)
+            {
+                result += "a";
+            }
+        }
+        
+        return result;
+    }
+};
