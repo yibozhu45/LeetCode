@@ -1,0 +1,51 @@
+idea: put the reverse bits into a string, then convert the string to int(using loop)
+
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        long x = 1;
+        string s = "";
+        long result = 0;
+        //after the implement, it is a already reversed string.
+        for(int i = 0; i < 32; i++)
+        {
+            if(x & n) s = s + "1";
+            else s = s + "0";
+            
+            n = n >> 1;
+        }
+
+        int j = 0; //for the pow
+        //begin from the backside
+        for(int i = s.size() -1; i >= 0; i--)
+        {
+            if(s[i] == '1') result += pow(2, j);
+            j++;
+        }
+        return result;
+    }
+};
+
+///////////////////////////////////////////////////////////////////////////////////////
+the essential part of the question is using 2^n to convert
+
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        long i = 1;
+        long result = 0;
+        int power = 31;
+        while(n != 0)
+        {
+            if(n & i) result += pow(2, power);
+            
+            n = n >> 1;
+            power--;
+        }
+        return result;
+    }
+};
+
+Time Complexity: O(1). Though we have a loop in the algorithm, the number of iteration is fixed regardless the input, since the integer is of fixed-size (32-bits) in our problem.
+
+Space Complexity: O(1), since the consumption of memory is constant regardless the input.
