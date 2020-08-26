@@ -1,0 +1,80 @@
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        map<char, int> mp;
+        vector<int> v;
+        
+        for(char c : text)
+        {
+            if(c == 'b')
+            {
+                mp[c]++;
+            }
+            else if(c == 'a')
+            {
+                mp[c]++;
+            }
+            else if(c == 'l')
+            {
+                mp[c]++;
+            }
+            else if(c == 'o')
+            {
+                mp[c]++;
+            }
+            else if(c == 'n')
+            {
+                mp[c]++;
+            }
+        }
+        
+        //check the mp elements
+        if(mp.size() < 5) return 0;
+        
+        for(auto i : mp)
+        {
+            if(i.first == 'b'||i.first == 'a'||i.first == 'n')
+            {
+                v.push_back(i.second);
+            }
+            else
+            {
+                v.push_back(i.second/2);
+            }
+        }
+ 
+        return *min_element(v.begin(), v.end());
+        
+    }
+};
+//////////////////////////////////////////////////////////////////
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        int b, a, l, o, n;
+        b=a=l=o=n=0;
+        for (auto c: text) {
+            if(c == 'b')
+            {
+                b++;
+            }
+            else if(c == 'a')
+            {
+                a++;
+            }
+            else if(c == 'l')
+            {
+                l++;
+            }
+            else if(c == 'o')
+            {
+                o++;
+            }
+            else if(c == 'n')
+            {
+                n++;
+            }
+        }
+        return min({b, a, l/2, o/2, n});
+    }
+};
