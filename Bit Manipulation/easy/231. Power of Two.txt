@@ -1,0 +1,43 @@
+left shift <<1 is the power of 2
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        unsigned int i = 1;
+        bool flag = false;
+        
+        //for negative n
+        if(n < 0) return flag;
+        
+        while(i <= n)
+        {
+            if(i == n) flag = true;
+            
+            i = i << 1;
+            
+        }
+        
+        return flag;
+        
+    }
+};
+
+//////////////////////////////////////////
+4 -- 100
+3 -- 011
+so x & (x - 1) = 0
+
+class Solution {
+  public:
+  bool isPowerOfTwo(int n) {
+    if (n == 0) return false;
+    long x = n; // for longer space
+    return (x & (x - 1)) == 0;
+  }
+};
+//////////////////////////////////////////
+x = 4      00100
+-x         11011 + 1 = ~x + 1
+x & ( -x)  00100 & 11100 = 00100 = x
+so, if the number is the power of two
+x & (-x) = x  
