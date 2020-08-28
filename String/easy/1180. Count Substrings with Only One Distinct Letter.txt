@@ -1,0 +1,59 @@
+"aaa" the subsets are "a", "a", "a", "aa", "aa", "aaa"
+It is 3+2+1.
+The general rule is (1 + n)*n/2
+///////////////////////////////////////////////////////
+class Solution {
+public:
+    int countLetters(string S) {
+        int result = 0;
+        int count = 0;
+        char c = S[0];
+        
+        for(int i = 0; i < S.size();i++)
+        {     
+            if(c == S[i])
+            {
+                count ++;
+            }
+            else
+            {
+                result += (1 + count)*count/2;
+                count = 1;
+                c = S[i];
+            } 
+            
+            if(i == S.size() -1)
+            {
+               result += (1 + count)*count/2; 
+            }
+            
+        }
+        return result;
+    }
+};
+//////////////////////////////////////////////////////////////////////
+better and clean code
+
+class Solution {
+public:
+    int countLetters(string S) 
+    {
+        int countwithsamechar = 1;
+        int sum = 0;
+        for(int i=0; i<S.size(); ++i)
+        {
+            if(S[i] == S[i+1])
+            {
+                countwithsamechar++;
+                continue;
+            }
+            
+            sum += ((countwithsamechar*(countwithsamechar+1))/2);
+            countwithsamechar = 1;
+            
+        }
+        
+        return sum;
+        
+    }
+};
