@@ -1,0 +1,53 @@
+build a map, then find the frequency in map
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        
+        map<char, int> mp;
+        int i = 0;
+        bool flag = false;
+        
+        for(int i = 0; i < s.size(); i++)
+        {
+            mp[s[i]]++;
+        }
+        
+        for( i; i < s.size(); i++)
+        {
+            auto it = mp.find(s[i]);
+            if(it -> second == 1)
+            {
+                flag = true;
+                break;  
+            }
+        }
+        
+        if(flag) return i;
+        else return -1;
+    }
+};
+
+///////////////////////////////////////////////
+remember all the character can be represented as a integer in ASCII
+
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        vector<int> v(26, 0);
+        for(int i = 0; i < s.size(); i++)
+        {
+            v[s[i] - 'a']++;
+        }
+        
+        for(int i = 0; i < s.size(); i++)
+        {
+            if(v[s[i] - 'a'] == 1)
+            {
+                return i;
+                break;
+            }
+        }
+        
+        return -1;
+    }
+};
