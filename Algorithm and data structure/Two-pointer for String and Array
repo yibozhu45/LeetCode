@@ -17,3 +17,23 @@ void reverse(int *v, int N) {
 
 One of the typical scenarios to use two-pointer technique is that Iterate the array from two ends to the middle.
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Use two pointers with different steps to solve problems: One slow-runner and one fast-runner at the same time.
+
+For example:
+Given an array and a value, remove all instances of that value in-place and return the new length.
+
+int removeElement(vector<int>& nums, int val) {
+    int k = 0;
+    for (int i = 0; i < nums.size(); ++i) {
+        if (nums[i] != val) {
+            nums[k] = nums[i];
+            ++k;
+        }
+    }
+    return k;
+}
+We use two pointers, one faster-runner i and one slower-runner k, in the example above. 
+i moves one step each time while k moves one step only if a new needed value is added.
+
