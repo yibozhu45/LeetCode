@@ -1,0 +1,16 @@
+#Two pointer doesn't mean the data type is pointer. It means  using the idea of pointer
+
+In the previous chapter, we solve some problems by iterating the array. 
+Typically, we only use one pointer starting from the first element and ending at the last one to do iteration. 
+However, sometimes, we might need to use two pointers at the same time to do the iteration.
+
+Eg: Reverse the elements in an array.
+void reverse(int *v, int N) {
+    int i = 0;
+    int j = N - 1;
+    while (i < j) {
+        swap(v[i], v[j]);
+        i++;
+        j--;
+    }
+}
