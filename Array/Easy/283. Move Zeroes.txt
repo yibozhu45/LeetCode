@@ -1,3 +1,26 @@
+Two pointer: one is k, one is i, all start from 0. If nums[i] = 0, k not move, i move forward. If nums[i] != 0, nums[k] = nums[i], k++.
+So, if nums has one zero, i will be one index quicker than k.
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int k = 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(nums[i] != 0)
+            {
+                nums[k] = nums[i];
+                k++;
+            }   
+        }
+        
+        for(int i = k; i < nums.size(); i++)
+        {
+            nums[i] = 0;
+        }
+    }
+};
+/////////////////////////////////////////////////////////
 idea: find all "0" element, count the number, delete them, then add same number of "0" to the end.
 
 class Solution {
@@ -41,25 +64,6 @@ public:
                         swap(nums[j+1],nums[j]);
                 }
             }
-        }
-    }
-};
-/////////////////////////////////////////////////////////
-idea: replace value 0 with not 0 value, use nz to mark the current position, then change the position after nz to 0
-
-class Solution {
-public:
-    void moveZeroes(vector<int>& nums) {
-        int nz=0;
-        int n=nums.size();
-        for(int i=0;i<n;i++){
-            if(nums[i]!=0){
-                nums[nz]=nums[i];
-                nz++;
-            }
-        }
-        for(int i=nz;i<n;i++){
-            nums[i]=0;
         }
     }
 };
