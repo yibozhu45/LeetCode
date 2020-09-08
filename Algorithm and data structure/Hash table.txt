@@ -5,8 +5,19 @@ There are two different kinds of hash tables: hash set and hash map.
   The hash map is one of the implementations of a map data structure to store (key, value) pairs.
   
 The Principle of Hash Table
-  The key idea of Hash Table is to use a hash function to map keys to buckets. 
+  1. The key idea of Hash Table is to use a hash function to map keys to buckets. 
+  
+Hash Function
+  1. The hash function is the most important component of a hash table which is used to map the key to a specific bucket. 
+  2. The hash function will depend on the range of key values and the number of buckets.
+     It is an open problem to design a hash function. The idea is to try to assign the key to the bucket as uniform as you can. Ideally, a perfect hash function will be a one-one mapping between the key and the bucket. However, in most cases a hash function is not perfect and it is a tradeoff between the amount of buckets and the capacity of a bucket.
 
+Collision Resolution
+  A collision resolution algorithm should solve the following questions:
+    1. How to organize the values in the same bucket?
+    2. What if too many values are assigned to the same bucket?
+    3. How to search a target value in a specific bucket?
+    
 .........................................................................................................................
 When the problem needs two "for" loop to solve, we can use hash table. 
 
