@@ -1,0 +1,54 @@
+two pointer:
+
+class Solution {
+
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+       sort(nums1.begin(), nums1.end());
+       sort(nums2.begin(), nums2.end());
+       int indexnums1 = 0;
+       int indexnums2 = 0;
+       vector<int> ans;
+       while (indexnums1 < nums1.size() && indexnums2 < nums2.size()) {
+           if (nums1[indexnums1] == nums2[indexnums2]) {
+               ans.push_back(nums1[indexnums1]);
+               indexnums1++;
+               indexnums2++;
+           } else if (nums1[indexnums1] > nums2[indexnums2]) {
+               indexnums2++;
+           } else {
+               indexnums1++;
+           }
+       }
+       return ans;
+    }
+};
+
+..........................................................................
+Hash Table:
+
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        map<int, int> mp;
+        vector<int> result;
+        for(int i = 0; i < nums1.size(); i++)
+        {
+            mp[nums1[i]]++;
+        }
+        
+        for(int i = 0; i < nums2.size(); i++)
+        {
+            if(mp.find(nums2[i]) != mp.end())
+            {
+                if(mp[nums2[i]] != 0)
+                {
+                    result.push_back(nums2[i]);
+                    mp[nums2[i]]--;
+                }
+            }
+        }
+        
+        return result;
+    }
+};

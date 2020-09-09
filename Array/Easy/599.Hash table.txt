@@ -1,0 +1,65 @@
+hash table is complicated, need to think carefully
+
+class Solution {
+public:
+    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
+        map<int,vector<string>> mp;
+        vector<int> n;
+        for(int i = 0; i < list1.size(); i++)
+        {
+            for(int j = 0; j < list2.size(); j++)
+            {
+                if(list1[i] == list2[j])
+                {
+                    mp[i + j].push_back(list1[i]);
+                }
+            }
+        }
+        
+        for(auto it : mp)
+        {
+            n.push_back(it.first);
+        }
+        sort(n.begin(), n.end());
+        
+        auto it = mp.find(n[0]);
+        return it -> second;
+        
+    }
+};
+.........................................................................................
+class Solution {
+public:
+    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
+        map<string, int> mp;
+        
+        for(int i = 0; i < list1.size(); i++)
+        {
+            mp[list1[i]] = i;
+        }
+        
+        vector<string> res;
+        int idx = INT_MAX;
+        for(int i = 0; i < list2.size(); i++)
+        {
+            if(mp.find(list2[i]) != mp.end())
+            {
+                int index = i + mp[list2[i]];
+                
+                //how to target the smallest one
+                if(index < idx)
+                {
+                    res.clear();
+                    idx = index;
+                    res.push_back(list2[i]);
+                }
+                
+                else if (index == idx) {
+                    res.push_back(list2[i]);
+                }
+
+            }
+        }
+        return res;
+    }
+};
