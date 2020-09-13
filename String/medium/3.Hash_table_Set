@@ -1,0 +1,57 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int count1 = INT_MIN;
+        int count = 0;
+        map<char, int> mp;
+        
+        for(int i = 0; i < s.size(); i++)
+        {
+            count = 0;
+            mp[s[i]]++;
+            count++;
+            for(int j = i + 1; j < s.size(); j++)
+            {
+                mp[s[j]]++;
+                if(mp[s[j]] >= 2)
+                {
+                    if(count >= count1) count1 = count;
+                    
+                    mp.clear();
+                    break;
+                }
+                else
+                {
+                    count++;
+                }
+                if(count >= count1) count1 = count;
+            }
+        }
+        if(count >= count1) return count;
+        else return count1;
+    }
+};
+/////////////////////////////////////////////////////////
+Approach 2: Sliding Window
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        set<char> set_s;
+        int ans, i, j;
+        ans = i = j = 0;
+        
+        while(i < s.size() && j < s.size())
+        {
+            if(set_s.find(s[j]) == set_s.end())// not inside set
+            {
+                set_s.insert(s[j++]);//j++, clear code
+                ans = max(ans, j - i);
+            }
+            else
+            {
+                set_s.erase(s[i++]);
+            }
+        }
+        return ans;
+    }
+};
