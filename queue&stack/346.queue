@@ -1,0 +1,98 @@
+Using vector:
+class MovingAverage {
+public:
+    int size;
+    vector<int> v;
+    double sum;
+    /** Initialize your data structure here. */
+    MovingAverage(int size) {
+       this->size = size;//this ->
+       sum = 0;
+    }
+    
+    double next(int val) {
+        if(v.size() < size)
+        {
+            v.push_back(val);
+            sum += val;
+            return sum/v.size();
+        } 
+        else{
+            sum -= v[0];
+            v.erase(v.begin());
+            v.push_back(val);
+            sum += val;
+            return sum/v.size();
+        }
+    }
+};
+.....................................................
+Using deque:
+class MovingAverage {
+public:
+    int size;
+    deque<int> q;
+    /** Initialize your data structure here. */
+    MovingAverage(int size) {
+       this->size = size;
+    }
+    
+    double next(int val) {
+        double ans;
+        deque<int>::iterator it;
+        if(q.size() < size)
+        {
+            q.push_back(val);
+            it = q.begin();
+            while(it != q.end())
+            {
+                ans += *it++;   
+            }
+            return ans/q.size();
+        } 
+        else
+        {
+            q.pop_front();
+            q.push_back(val);
+            it = q.begin();
+            while(it != q.end())
+            {
+                ans += *it++;   
+            }
+            return ans/q.size();;
+        }
+        
+    }
+};
+.........................................................
+
+class MovingAverage {
+public:
+    int wndSize;
+    double wndSum;
+    queue<int> q;
+    /** Initialize your data structure here. */
+    MovingAverage(int size) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
+        
+        wndSize = size;
+        wndSum = 0;
+    }
+    
+    double next(int val) {
+        if (q.size() < wndSize)
+        {
+            q.emplace(val);
+            wndSum += val;
+            return wndSum / q.size();
+        }
+        
+        wndSum -= q.front();
+        q.pop();
+        q.emplace(val);
+        wndSum += val;
+        return wndSum / wndSize;        
+    }
+};
