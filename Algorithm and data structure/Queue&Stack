@@ -81,6 +81,17 @@ int main() {
     cout << "The size is: " << q.size() << endl;
 }
 And remember when you want to process the elements in order, using a queue might be a good choice.
+.............................................................................................................................
+deque is a container template. It satisfies the requirements for a sequence with random-access iterators, much like a vector.
+A deque is a double-ended queue, which allows easy insertion/removal from either end.
+
+Queues only allow insertion in one end and retrieval from the other.
+Queue is not a container at all, it is an adaptor. It contains a container and provides a different, more specific interface. 
+Use queue when you want to remember (or remind) to avoid operations besides push[_back] and pop[_front], front and back, size 
+and empty. You can't look at elements inside the queue besides the first and last, at all! Queue doesn't have iterator built 
+inside.
+
+
 
 
 
