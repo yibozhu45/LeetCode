@@ -1,3 +1,5 @@
+*max/*min(vector.begin(), vector.end()) is not work correctly with negative numbers
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 std::unique is used to remove duplicates of any element present consecutively in a range[first, last).
 
 #include <iostream> 
