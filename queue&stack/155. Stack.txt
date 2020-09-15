@@ -1,0 +1,153 @@
+Vector:
+
+class MinStack {
+public:
+    vector<int> stack;
+    /** initialize your data structure here. */
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        cout << x << "  ";
+        stack.push_back(x);
+    }
+    
+    void pop() {
+        if(stack.size() != 0)
+            stack.pop_back();
+    }
+    
+    int top() {
+        return stack.back();
+        
+    }
+    
+    int getMin() {
+        vector<int> v = stack;
+        sort(v.begin(), v.end());
+        if(stack.size() != 0) return v[0];
+        else return 0;
+    }
+};
+....................................................
+2D vector, to make getMin() runtime speed O(1)
+
+class MinStack {
+public:
+    vector<vector<int>> v;
+    /** initialize your data structure here. */
+    MinStack() {
+    }
+    
+    void push(int x) {
+        vector<int> v1;
+        if(v.size() == 0)
+        {
+           v1.push_back(x); v1.push_back(x); 
+        }
+        else
+        {
+            int currentMin = v[v.size()-1][1];
+            if(currentMin <= x)
+            {
+               v1.push_back(x); v1.push_back(currentMin); 
+            }
+            else
+            {
+                v1.push_back(x); v1.push_back(x);
+            }
+        }
+        v.push_back(v1);
+    }
+    
+    void pop() {
+        v.erase(v.end());
+    }
+    
+    int top() {
+        return v[v.size()-1][0];
+    }
+    
+    int getMin() {
+        return v[v.size()-1][1];
+    }
+};
+..............................................................
+vector with pair:
+
+static auto speedup = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    vector<pair<int,int>> nodes;
+    MinStack() :nodes(){
+        
+    }
+    
+    void push(int x) {
+        if(nodes.size()==0){
+            nodes.push_back(pair<int,int>(x,x));
+        } else{
+            int curMin= nodes[nodes.size()-1].second;
+            if(curMin<x){
+                nodes.push_back(pair<int,int>(x,curMin));
+            } else{
+                nodes.push_back(pair<int,int>(x,x));
+            }
+        }
+    }
+    
+    void pop() {
+        nodes.erase(nodes.end());
+    }
+    
+    int top() {
+        return nodes[nodes.size()-1].first;
+    }
+    
+    int getMin() {
+        return nodes[nodes.size()-1].second;
+    }
+};
+...........................................................
+Two vector:
+
+class MinStack {
+public:
+    std::vector<int> _stack;
+    std::vector<int> _mins;
+    /** initialize your data structure here. */
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        _stack.push_back(x);
+        if (_mins.empty()) {
+            _mins.push_back(x);
+        } else {
+            _mins.push_back(std::min(x, _mins.back()));
+        }
+    }
+    
+    void pop() {
+        _mins.pop_back();
+        _stack.pop_back();
+    }
+    
+    int top() {
+        return _stack.back();
+    }
+    
+    int getMin() {
+        return _mins.back();
+    }
+    
+};
