@@ -170,3 +170,79 @@ int BFS(Node root, Node target) {
     }
     return -1;          // there is no path from root to target
 }
+................................................................................................
+                                         STACK
+................................................................................................
+In a LIFO data structure, the newest element added to the queue will be processed first.
+Similar to the queue, a new element is always added at the end of the stack. However, 
+the delete operation, pop, will always remove the last element which is opposite from the queue.
+
+When you want to process the last element first, the stack will be the most appropriate data structure.
+
+Implement using vector
+#include <iostream>
+
+class MyStack {
+    private:
+        vector<int> data;               // store elements
+    public:
+        /** Insert an element into the stack. */
+        void push(int x) {
+            data.push_back(x);
+        }
+        /** Checks whether the queue is empty or not. */
+        bool isEmpty() {
+            return data.empty();
+        }
+        /** Get the top item from the queue. */
+        int top() {
+            return data.back();
+        }
+        /** Delete an element from the queue. Return true if the operation is successful. */
+        bool pop() {
+            if (isEmpty()) {
+                return false;
+            }
+            data.pop_back();
+            return true;
+        }
+};
+
+int main() {
+    MyStack s;
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    for (int i = 0; i < 4; ++i) {
+        if (!s.isEmpty()) {
+            cout << s.top() << endl;
+        }
+        cout << (s.pop() ? "true" : "false") << endl;
+    }
+}
+.................................................................
+C++ stack library:
+
+#include <iostream>
+
+int main() {
+    // 1. Initialize a stack.
+    stack<int> s;
+    // 2. Push new element.
+    s.push(5);
+    s.push(13);
+    s.push(8);
+    s.push(6);
+    // 3. Check if stack is empty.
+    if (s.empty()) {
+        cout << "Stack is empty!" << endl;
+        return 0;
+    }
+    // 4. Pop an element.
+    s.pop();
+    // 5. Get the top element.
+    cout << "The top element is: " << s.top() << endl;
+    // 6. Get the size of the stack.
+    cout << "The size is: " << s.size() << endl;
+}
+
