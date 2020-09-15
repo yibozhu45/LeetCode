@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        string left = "({[";
+        vector<char> v;
+        map<char, char> mp;
+        //initialize map
+        mp[')'] = '('; mp['}'] = '{'; mp[']'] = '[';
+        
+        for(int i = 0; i < s.size(); i++)
+        {
+            if(left.find(s[i]) != string::npos)
+            {
+                v.push_back(s[i]);
+            }
+            else
+            {
+                //first one is },],)
+                if(v.size() == 0)
+                    return false;
+                
+                auto it = mp.find(s[i]);
+                if(it -> second != v.back())
+                    return false;
+                else
+                    v.pop_back();
+            }
+        }
+        
+        if(v.size() != 0) return false;
+        else return true;
+    }
+};
