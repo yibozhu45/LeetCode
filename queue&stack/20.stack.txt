@@ -31,3 +31,30 @@ public:
         else return true;
     }
 };
+........................................................................................
+Improve memory space
+
+class Solution {
+public:
+    bool isValid(string s) {
+        map<char, char> valid_parentheses = {{')', '('}, 
+                                             {']', '['}, 
+                                             {'}', '{'}};
+        if(s.length() == 0) 
+            return true;
+        if(s[0] == ')' || s[0] == '}' || s[0] == ']' || s.length() == 1) 
+            return false;
+        string st (1, s[0]);
+        for(int i=1; i<s.length(); i++) {
+            if(s[i] == '(' || s[i] == '{' || s[i] == '[') {
+                st += s[i];
+            }
+            else if(st.length() > 0 && valid_parentheses[s[i]] == st[st.length()-1]) {
+                st.pop_back();
+            }
+            else 
+                return false;
+        }
+        return st.empty();    
+    }
+};
