@@ -91,6 +91,8 @@ Use queue when you want to remember (or remind) to avoid operations besides push
 and empty. You can't look at elements inside the queue besides the first and last, at all! Queue doesn't have iterator built 
 inside.
 .............................................................................................................................
+BFS：一层层的找
+
 Two main scenarios of using BFS: do traversal or find the shortest path. Typically, it happens in a tree or a graph. 
 It will be important to determine the nodes and the edges before doing BFS in a specific question.
 
@@ -245,4 +247,23 @@ int main() {
     // 6. Get the size of the stack.
     cout << "The size is: " << s.size() << endl;
 }
+.................................................................................................
+DFS一个个找，找到就OK
 
+Depth-First Search (DFS) can also be used to find the path from the root node to the target node.
+Only trace-back and try another path after we reach the deepest node.
+As a result, the first path you found in DFS is not always the shortest path. 
+
+What is the push and pop order of the stack?
+First push the root node to the stack; then we try the first neighbor B and push node B to the stack; 
+so on and so forth. When we reach the deepest node E, we need to trace back. And when we trace back, 
+we will pop the deepest node from the stack which is actually the last node pushed to the stack.
+
+The processing order of the nodes is the exact opposite order as how they were added to the stack, 
+which is Last-in-First-out (LIFO). That's why we use a stack in DFS.
+
+In most cases, we can also use DFS when using BFS. But there is an important difference: the traversal order.
+Different from BFS, the nodes you visit earlier might not be the nodes which are closer to the root node. 
+As a result, the first path you found in DFS might not be the shortest path.
+
+In the worst case, it costs O(h) to maintain the system stack, where h is the maximum depth of DFS.
