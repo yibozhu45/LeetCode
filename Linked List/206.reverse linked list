@@ -1,0 +1,79 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ 
+ idea: store the value in vector, then build a new linked list
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        vector<int> v;
+        
+        if(head == NULL) return head;
+        
+        while(head != NULL)
+        {
+            v.push_back(head -> val);
+            head = head -> next;
+        }
+        
+        
+        ListNode* result = new ListNode(v[v.size() -1]);
+        ListNode* cur = result;
+        for(int i = v.size() - 2; i >= 0; i--)
+        {
+            result -> next = new ListNode(v[i]);
+            result = result -> next;
+        }
+        
+
+        return cur;
+    }
+};
+................................................................
+Reverse the list iteratively
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        
+        if(head == NULL) return head;
+        
+        ListNode* pre = NULL;
+        ListNode* cur = head;
+        head = head -> next;
+        
+        while(head != NULL)
+        {
+            cur -> next  = pre;
+            pre = cur;
+            cur = head;
+            head = head -> next;
+        }
+        
+        cur -> next = pre;
+
+        
+        return cur;
+    }
+};
+...............................................................
+Reverse the list recursively
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        
+        if(head == NULL || head -> next == NULL) return head;
+        
+        ListNode* p = reverseList(head->next);
+        head -> next -> next = head;
+        head -> next = NULL;
+        
+        return p;
+    }
+};
