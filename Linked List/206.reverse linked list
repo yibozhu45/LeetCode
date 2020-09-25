@@ -23,7 +23,7 @@ public:
             head = head -> next;
         }
         
-        
+        //pointer has to be initialized
         ListNode* result = new ListNode(v[v.size() -1]);
         ListNode* cur = result;
         for(int i = v.size() - 2; i >= 0; i--)
