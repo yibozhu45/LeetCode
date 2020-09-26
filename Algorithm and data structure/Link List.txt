@@ -1,3 +1,7 @@
+* 
+1. decide cur != NULL or cur -> next != NULL
+2. if it is a empty linked list
+
 The linked list is a linear data structure. Each element in the linked list is actually a separate object while all the objects are linked together by the reference field in each element.
 
 Each node in a singly-linked list contains not only the value but also a reference field to link to the next node. By this way, the singly-linked list organizes all the nodes in a sequence.
