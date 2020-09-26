@@ -27,3 +27,39 @@ public:
     }
 };
 ........................................................................
+idea: vanish the difference then compare
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int cntA = 0;
+        int cntB = 0;
+        ListNode* A = headA;
+        ListNode* B = headB;
+        while (A) {
+            cntA++;
+            A = A->next;
+        }
+        while (B) {
+            cntB++;
+            B = B->next;
+        }
+        A = headA;
+        B = headB;
+        int dif = 0;
+        if (cntA < cntB) {
+            dif = cntB - cntA;
+            while (dif--) B = B->next;
+        } else if (cntA > cntB) {
+            dif = cntA - cntB;
+            while (dif--) A = A->next;
+        }
+        while (A && B) {
+            if (A == B) return A;
+            A = A->next;
+            B = B->next;
+        }
+        return nullptr;
+        
+    }
+};
