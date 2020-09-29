@@ -127,5 +127,133 @@ If there is no cycle, the fast pointer will stop at the end of the linked list.
 If there is a cycle, the fast pointer will eventually meet with the slow pointer.
 
 It is a safe choice to move the slow pointer one step at a time while moving the fast pointer two steps at a time. For each iteration, the fast pointer will move one extra step. If the length of the cycle is M, after M iterations, the fast pointer will definitely move one more cycle and catch up with the slow pointer.
+.........................................................................................................
+Double linked list
+
+// Definition for doubly-linked list.
+struct DoublyListNode {
+    int val;
+    DoublyListNode *next, *prev;
+    DoublyListNode(int x) : val(x), next(NULL), prev(NULL) {}
+};
+
+1. Initiate a new linked list: represent a linked list using the head node.
+
+class MyLinkedList {
+private:
+    DoublyListNode *head;
+public:
+    /** Initialize your data structure here. */
+    MyLinkedList() {
+        head = NULL;
+    }
+}
+
+2. Traverse the linked list to get element by index.
+
+/** Helper function to return the index-th node in the linked list. */
+DoublyListNode* getNode(int index) {
+    DoublyListNode *cur = head;
+    for (int i = 0; i < index && cur; ++i) {
+        cur = cur->next;
+    }
+    return cur;
+}
+/** Helper function to return the last node in the linked list. */
+DoublyListNode* getTail() {
+    DoublyListNode *cur = head;
+    while (cur && cur->next) {
+        cur = cur->next;
+    }
+    return cur;
+}
+/** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
+int get(int index) {
+    DoublyListNode *cur = getNode(index);
+    return cur == NULL ? -1 : cur->val;
+}
+    
+ 3. Add a new node.
+
+/** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
+void addAtHead(int val) {
+    DoublyListNode *cur = new DoublyListNode(val);
+    cur->next = head;
+    if (head) {
+        head->prev = cur;
+    }
+    head = cur;
+    return;
+}
+
+/** Append a node of value val to the last element of the linked list. */
+void addAtTail(int val) {
+    if (head == NULL) {
+        addAtHead(val);
+        return;
+    }
+    DoublyListNode *prev = getTail();
+    DoublyListNode *cur = new DoublyListNode(val);
+    prev->next = cur;
+    cur->prev = prev;
+}
+
+/** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
+void addAtIndex(int index, int val) {
+    if (index == 0) {
+        addAtHead(val);
+        return;
+    }
+    DoublyListNode *prev = getNode(index - 1);
+    if (prev == NULL) {
+        return;
+    }
+    DoublyListNode *cur = new DoublyListNode(val);
+    DoublyListNode *next = prev->next;
+    cur->prev = prev;
+    cur->next = next;
+    prev->next = cur;
+    if (next) {
+        next->prev = cur;
+    }
+}
+
+5. Delete a node.
+
+/** Delete the index-th node in the linked list, if the index is valid. */
+void deleteAtIndex(int index) {
+    DoublyListNode *cur = getNode(index);
+    if (cur == NULL) {
+        return;
+    }
+    DoublyListNode *prev = cur->prev;
+    DoublyListNode *next = cur->next;
+    if (prev) {
+        prev->next = next;
+    } else {
+        // modify head when deleting the first node.
+        head = next;
+    }
+    if (next) {
+        next->prev = prev;
+    }
+}
+............................................................................
+Let's briefly review the performance of the singly linked list and doubly linked list.
+
+They are similar in many operations:
+
+Both of them are not able to access the data at a random position in constant time.
+Both of them are able to add a new node after given node or at the beginning of the list in O(1) time.
+Both of them are able to delete the first node in O(1) time.
+
+But it is a little different to delete a given node (including the last node).
+1. In a singly linked list, it is not able to get the previous node of a given node so we have to spend O(N) time to find out 2. the previous node before deleting the given node.
+In a doubly linked list, it will be much easier because we can get the previous node with the "prev" reference field. So we can delete a given node in O(1) time.
+
+If you need to add or delete a node frequently, a linked list could be a good choice.
+
+If you need to access an element by index often, an array might be a better choice than a linked list.
+
 
 
