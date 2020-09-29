@@ -1,0 +1,76 @@
+idea: loop through the Linked list, store the nodes in odd, even linked list, then link them together.
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        ListNode* odd = new ListNode(0);
+        ListNode* cur_o = odd;
+        ListNode* even = new ListNode(0);
+        ListNode* cur_e = even;
+        
+        ListNode* temp = head;
+        int count = 0;
+        while(temp != NULL)
+        {
+            if(count % 2 == 0)
+            {
+                cur_e -> next = new ListNode(temp -> val);
+                cur_e = cur_e -> next;
+            }
+            else
+            {
+                cur_o -> next = new ListNode(temp -> val);
+                cur_o = cur_o -> next;
+            }
+            count++;
+            temp = temp -> next;
+        }
+        
+        cur_e -> next = odd ->next;
+        return even -> next;
+    }
+};
+............................................................
+Two pointer:
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (head==NULL or head->next==NULL) return head;
+        ListNode* head_odd = head -> next;
+        ListNode* b = head_odd;
+        ListNode* a = head;
+        int i = 0;
+        while(true)
+        {
+            i++;
+            if(b -> next == NULL)
+            {
+               if(i % 2 == 1)
+               {
+                  a -> next = head_odd;
+                  return head;
+               }
+                else
+                {
+                    b -> next = head_odd;
+                    a -> next = NULL;
+                    return head;
+                }
+            }
+            
+            a -> next = b -> next;
+            a = b;
+            b = b -> next;
+        }
+    }
+};
