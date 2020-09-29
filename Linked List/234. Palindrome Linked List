@@ -1,0 +1,79 @@
+1. switch to vector to solve the question
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        
+        if(head == NULL || head -> next == NULL) return true;
+        vector<int> v;
+        
+        while(head != NULL)
+        {
+            v.push_back(head -> val);
+            head = head -> next;
+        }
+        
+        int front = 0;
+        int back = v.size() -1;
+        while(front < back)
+        {
+            if(v[front] != v[back])
+            {
+                return false;
+            }
+            front++;
+            back--;
+        }
+        return true;
+        
+    }
+};
+...................................................................
+2. recursive
+
+class Solution {
+public:
+    int findLengthOfLinkedList(ListNode* head) {
+        return head == NULL ? 0 : 1 + findLengthOfLinkedList(head->next);
+    }
+    
+    pair<ListNode*, ListNode*> reverseTill(ListNode* c, int n) {
+        ListNode* prev = NULL, *cur = c, *next = NULL;
+        while (cur != NULL) {
+            next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+            --n;
+            if (!n) return {prev, next};
+        }
+        assert(false);
+        return {NULL, NULL};
+    }
+    bool isPalindrome(ListNode* head) {
+        int length = findLengthOfLinkedList(head);
+        if (length < 2) return true;
+        auto mid = reverseTill(head, length / 2);
+        ListNode* l = mid.first;
+        ListNode* r = mid.second;
+        if (length & 1) r = r->next;
+        while (l != NULL and r != NULL) {
+            if (l->val != r->val) {
+                return false;
+            }
+            l = l->next;
+            r = r->next;
+        }
+        return true;
+    }
+}; 
