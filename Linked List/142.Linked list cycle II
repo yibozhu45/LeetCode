@@ -1,0 +1,31 @@
+1. Two pointer can't return the node where the cycle begins, because the node that two pointer meet may not be the answer node.
+
+
+2. map
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if (head == NULL || head->next == NULL) {
+        return NULL;
+        }
+        
+        map<ListNode*, int> mp;
+        
+        while(head != NULL)
+        {
+            mp[head]++;
+            if(mp[head] == 2)
+                return head;
+            head = head -> next;
+        }
+        return NULL; 
+    }
+};
