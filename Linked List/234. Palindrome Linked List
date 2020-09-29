@@ -77,3 +77,5 @@ public:
         return true;
     }
 }; 
+.......................................................................
+idea: find the mid, then compare the nodes, one from head, one from mid
