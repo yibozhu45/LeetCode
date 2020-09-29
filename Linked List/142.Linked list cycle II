@@ -1,6 +1,42 @@
-1. Two pointer can't return the node where the cycle begins, because the node that two pointer meet may not be the answer node.
+1. Two pointer
 
+If linked list is a standard cycle, slow and fast will meet at head.
+If it is not a perfect cycle, the number of nodes which fast missed to the cycle start node is the nodes begin from head to
+the cycle begin nodes.
 
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if (head == nullptr)
+            return nullptr;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        if (head != nullptr && head->next != nullptr && 
+        head->next->next != nullptr) {
+            slow = head->next;
+            fast = head->next->next;
+        } else {
+            return nullptr;
+        }
+        while (slow != fast && slow->next != nullptr && 
+        fast->next != nullptr && fast->next->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        if (slow != nullptr && fast != nullptr && slow == fast) {
+            slow = head;
+            while (slow != fast) {
+                slow = slow->next;
+                fast = fast->next;
+            }
+            return slow;
+        } else {
+            return nullptr;
+        }
+    }
+};
+
+.......................................................................
 2. map
 /**
  * Definition for singly-linked list.
