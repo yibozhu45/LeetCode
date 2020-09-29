@@ -1,4 +1,8 @@
 * 
+Always examine if the node is null before you call the next field.
+
+Carefully define the end conditions of your loop.
+
 1. decide cur != NULL or cur -> next != NULL
 2. if it is a empty linked list
 3. Initialize ListNode* pointer
@@ -113,6 +117,8 @@ void deleteAtIndex(int index) {
     }
 }
 ..........................................................................................................
+Two pointer:
+
 Given a linked list, determine if it has a cycle in it.
 
 That's exactly what we will come across using two pointers with different speed in a linked list:
