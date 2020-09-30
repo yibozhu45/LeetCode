@@ -1,0 +1,88 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* plusOne(ListNode* head) {
+        //[9]
+        if(head -> val == 9 && head -> next == NULL)
+        {
+            ListNode* a = new ListNode(1);
+            a -> next = head;
+            head -> val = 0;
+            return a;
+        }
+        
+        //check last value
+        ListNode* temp = head;
+        while(temp -> next != NULL)
+        {
+            temp = temp -> next;
+        }
+        
+        if(temp -> val < 9)
+        {
+            temp -> val += 1;
+            return head;
+        }
+        else
+        {
+            
+        //reverse linked list
+        ListNode* a = new ListNode(0);
+        a -> next = NULL;
+        ListNode* b = head -> next;
+        
+        while(b != NULL)
+        {
+            head -> next = a;
+            a = head;
+            head = b;
+            b = b-> next;
+        }
+        head -> next = a;
+          
+        //Now, head point to the last value
+          if(head -> val == 9)
+          {
+              head -> val = 10;
+          }
+        
+        //reverse the linked list back and solve "9,9,9,10" question 
+        while(a -> next != NULL)
+        {
+            if(head -> val == 10)
+            {
+                head -> val = 0;
+                a -> val += 1;
+            }
+            head -> next = b;
+            b = head;
+            head = a;
+            a = a -> next;
+        }
+        head -> next = b;
+        
+        //check a is empty or not
+        if(head -> val <= 9)
+        {
+            return head;
+        }
+        else
+        {
+            head -> val = 0;
+            a -> val = 1;
+            a -> next = head;
+            return a;
+        }
+            
+        }
+    }
+};
