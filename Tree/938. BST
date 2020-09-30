@@ -1,0 +1,90 @@
+1. Traverse all the tree nodes then add all together (recursive)
+class Solution {    
+public:
+    int helper(TreeNode* root)
+    {
+        if(root == NULL)
+        {
+            return 0;
+        }
+        
+        return root -> val + helper(root->right) + helper(root->left);
+    }
+    
+    int rangeSumBST(TreeNode* root) {
+        return helper(root);
+    }
+};
+
+......................................................................
+2. add nodes in [L, R] together
+
+int L, int R, find nodes' value in range L and R (L < R)
+
+class Solution {
+public:
+    int ans = 0;
+    
+    int helper(TreeNode* root, int L, int R)
+    {
+        if(root != NULL)
+        {
+            if(root-> val >= L && root -> val <= R)
+            {
+                ans += root -> val;
+            }
+            helper(root->right, L, R);
+            helper(root->left, L, R);
+        }
+        return ans;
+    }
+    
+    int rangeSumBST(TreeNode* root, int L, int R) {      
+        return helper(root, L, R);
+    }
+};
+.......................................................................
+use stack to help loop the tree
+
+class Solution {
+public:
+    int rangeSumBST(TreeNode* root, int L, int R) {
+       stack<TreeNode*>st;
+        st.push(root);//only pushed in one
+        int range_sum=0;
+        while(!st.empty())
+        {
+            TreeNode* node=st.top();
+            st.pop();
+            if(node->val>=L&&node->val<=R)
+                range_sum+=node->val;
+            if(node->left!=NULL)
+                st.push(node->left);
+            if(node->right!=NULL)
+                st.push(node->right);
+        }
+        return range_sum;
+    }
+};
+........................................................................
+use vector to help loop the tree
+class Solution {
+public:
+    int rangeSumBST(TreeNode* root, int L, int R) {
+       vector<TreeNode*> v;
+        v.push_back(root);
+        int range_sum=0;
+        while(!v.empty())
+        {
+            TreeNode* node=v[v.size() -1];
+            v.pop_back();
+            if(node->val>=L&&node->val<=R)
+                range_sum+=node->val;
+            if(node->left!=NULL)
+                v.push_back(node->left);
+            if(node->right!=NULL)
+                v.push_back(node->right);
+        }
+        return range_sum;
+    }
+};
