@@ -86,3 +86,32 @@ public:
         }
     }
 };
+........................................................................
+class Solution {
+    ListNode* helper(ListNode* head, int &carry){
+        if(head == NULL)
+            return NULL;
+        
+        int sum = 0;
+        int rem = 0;
+        head->next = helper(head->next, carry);
+        sum = head->val + carry;
+        carry = sum / 10;
+        rem = sum % 10;
+        head->val = rem;
+        return head;
+    }
+public:
+    ListNode* plusOne(ListNode* head) {
+        if(head == NULL)
+            return NULL;
+        //as we have to add one to the Least Significant digit
+        int carry = 1;
+        ListNode* start = helper(head, carry);
+        if(carry > 0){
+            ListNode* newNode = new ListNode(carry, start);
+            start = newNode;
+        }
+        return start;
+    }
+};
