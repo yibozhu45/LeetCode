@@ -1,0 +1,69 @@
+class Solution {
+public:
+    vector<int> v;
+    void helper(TreeNode* root)
+    {
+        if(root != NULL)
+        {
+            v.push_back(root -> val);
+            helper(root -> left);
+            helper(root -> right);
+        }
+    }
+    
+    TreeNode* increasingBST(TreeNode* root) {
+        if(root == NULL) return root;
+        helper(root);
+        sort(v.begin(), v.end());
+        for(auto it : v) cout << it << " ";
+        TreeNode* res = new TreeNode(v[0]);
+        TreeNode* cur = res;
+        for(int i = 1; i < v.size(); i++)
+        {
+            cur -> right = new TreeNode(v[i]);
+            cur = cur -> right;
+        }
+        return res;
+    }
+};
+..................................................
+Use binary tree character
+class Solution {
+public:
+     
+    TreeNode* head = NULL;
+    TreeNode* tail = NULL;
+    
+    TreeNode* increasingBST(TreeNode* root) {
+                
+         makeNewTree(root);    
+        return head;
+    }
+    
+    void makeNewTree(TreeNode* root){
+        
+        if(root == NULL){
+            return;    
+        }
+                
+        makeNewTree(root->left);
+         
+        if(head == NULL){
+            head = new TreeNode();
+            head->val = root->val;
+            head->right = NULL;
+            head->left = NULL;
+            tail = head;
+        }
+        else{
+            tail->right = new TreeNode();
+            tail = tail->right;
+            tail->val = root->val;
+            tail->left = NULL;        
+        }
+        
+        makeNewTree(root->right);
+        
+        
+    }
+};
