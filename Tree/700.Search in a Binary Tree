@@ -1,0 +1,24 @@
+Consider using global variable
+
+class Solution {
+public: 
+    TreeNode* res = NULL;
+    void helper(TreeNode* root, int val)
+    {
+        if(root != NULL)
+        {
+        if(root -> val == val)
+            res = root;
+            
+        helper(root -> right, val);
+        helper(root -> left, val);
+        }
+    }
+    
+    TreeNode* searchBST(TreeNode* root, int val) {
+        if(root == NULL)
+            return root;
+        helper(root, val);
+        return res;
+    }
+};
