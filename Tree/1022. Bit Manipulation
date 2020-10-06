@@ -23,6 +23,7 @@ public:
             helper(root -> left, i);
             helper(root -> right, i);
             
+            //if node is a leaf
             if(root -> left == NULL && root -> right == NULL)
                 sum += i;
         }
