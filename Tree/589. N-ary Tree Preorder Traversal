@@ -27,6 +27,7 @@ private:
             return;
         }
         
+        //root first, then left, then right
         result.push_back(root -> val);
         
         for (Node* child : root -> children) {
