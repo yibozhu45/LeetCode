@@ -1,3 +1,10 @@
+How recursive work in a tree:
+1. when function() called, it will do until the base case.
+
+2.jump back, do one level up the base case
+
+
+
 When use node -> val, node -> right, node -> left, consider node != NULL first!
 ...............................
 Tree:
