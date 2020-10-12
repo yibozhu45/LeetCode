@@ -6,3 +6,28 @@ public:
         return max(1 + maxDepth(root -> left), 1 + maxDepth(root -> right));
     }
 };
+............................................................................
+class Solution {
+public:
+    vector<int> v;
+    void helper(TreeNode* root, int i)
+    {
+        if(root != NULL)
+        {
+            helper(root -> right, i+1);
+            helper(root -> left, i+1);
+            
+            if(root -> right == NULL && root -> left == NULL)
+            {
+                v.push_back(i);
+            }
+        }
+    }
+    int maxDepth(TreeNode* root) {
+        if(root == NULL) return 0;
+        helper(root, 1);
+        sort(v.begin(), v.end());
+        
+        return v[v.size() -1];
+    }
+};
