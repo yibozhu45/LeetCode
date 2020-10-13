@@ -3,7 +3,10 @@ How recursive work in a tree:
 
 2.jump back, do one level up the base case
 
+For each recursive function call, we only focus on the problem for the current node and call the function recursively to solve its children.
 
+Recursive "Top-down", "Bottom-up" solution:
+https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/534/
 
 When use node -> val, node -> right, node -> left, consider node != NULL first!
 ...............................
