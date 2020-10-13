@@ -1,0 +1,113 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+ 
+Recursive
+ 
+class Solution {
+public:
+    vector<vector<int>> res;
+    void helper(TreeNode* root, int i, vector<int> v)
+    {
+        if(root != NULL)
+        {
+            if(i < res.size())
+            {
+                res[i].push_back(root -> val);
+            }
+            else
+            {
+                v.push_back(root -> val);
+                res.push_back(v);
+                v.clear();
+            }
+            helper(root -> left, i+1, v);
+            helper(root -> right, i+1, v);
+        }
+    }
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<int> v;
+        helper(root, 0,v);
+        return res;
+
+/*      in one array
+        vector<vector<int>> res;
+        vector<int> v;
+        queue<TreeNode*> q;
+        q.push(root);
+        if(root == NULL)
+        {
+            return res;
+        }
+        while(!q.empty())
+        {
+            root = q.front();
+            q.pop();
+            
+            if(root -> left != NULL)
+            {
+                q.push(root -> left);
+            }
+            if(root -> right != NULL)
+            {
+                q.push(root -> right);
+            }
+            
+            v.push_back(root -> val);
+            
+        }
+        res.push_back(v);
+        return res;
+*/        
+    }
+};
+.......................................................
+Iterative:
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+         vector<int> v;
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        if(root == NULL)
+        {
+            return res;
+        }
+
+        while(!q.empty())
+        {   
+            int n = q.size();//how many elements in last level
+            for(int i = 0; i < n; i++)
+            {
+                //pop out last level element
+                TreeNode* temp = q.front();
+                q.pop();
+                v.push_back(temp -> val);
+            //push in new level element
+            if(temp -> left != NULL)
+            {
+                q.push(temp -> left);
+            }
+            if(temp -> right != NULL)
+            {
+                q.push(temp -> right);
+            }
+            }
+            
+            res.push_back(v);
+            v.clear();
+        }
+        return res;
+        
+    }
+};
