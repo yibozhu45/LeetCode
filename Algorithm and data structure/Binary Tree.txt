@@ -17,12 +17,172 @@ Traversal:
 Pre-order traversal:
 Pre-order traversal is to visit the root first. Then traverse the left subtree. Finally, traverse the right subtree.
 
+144
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> v;
+    void helper(TreeNode* root)
+    {
+        if(root != NULL)
+        {
+            v.push_back(root -> val);//root
+            helper(root -> left);//left
+            helper(root -> right);//right
+        }
+    }
+    
+    vector<int> preorderTraversal(TreeNode* root) {
+        helper(root);
+        return v;
+    }
+};
+iteration
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> v;
+        stack<TreeNode*> s;
+        while(root != NULL || !s.empty())
+        {
+            if(root != NULL)
+            {
+                v.push_back(root -> val);
+                s.push(root);
+                root = root -> left;
+            }
+            else
+            {
+                root = s.top();
+                s.pop();
+                root = root -> right;  
+            }
+        }
+            
+        return v;
+    }
+};
+
 In-order traversal:
 In-order traversal is to traverse the left subtree first. Then visit the root. Finally, traverse the right subtree.
 Typically, for binary search tree, we can retrieve all the data in sorted order using in-order traversal.
 
+94
+class Solution {
+public:
+    vector<int> v;
+    void helper(TreeNode* root)
+    {
+        if(root != NULL)
+        {
+            helper(root -> left);//left
+            v.push_back(root -> val);//root
+            helper(root -> right);//right
+        }
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        helper(root);
+        return v;
+    }
+};
+
+iteration
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> v;
+        stack<TreeNode*> s;
+        while(root != NULL || !s.empty())
+        {
+            if(root != NULL)
+            {
+                s.push(root);
+                root = root -> left;
+            }
+            else
+            {
+                root = s.top();
+                s.pop();
+                v.push_back(root -> val);
+                root = root -> right;  
+            }
+        }
+            
+        return v;
+    }
+};
 Post-order traversal:
 Post-order traversal is to traverse the left subtree first. Then traverse the right subtree. Finally, visit the root.
 It is worth noting that when you delete nodes in a tree, deletion process will be in post-order. That is to say, when you delete a node, you will delete its left child and its right child before you delete the node itself.
 
 Also, post-order is widely use in mathematical expression. It is easier to write a program to parse a post-order expression.
+
+145
+class Solution {
+public:
+    vector<int> v;
+    void helper(TreeNode* root)
+    {
+        if(root != NULL)
+        {
+            helper(root -> left);//left
+            helper(root -> right);//right
+            v.push_back(root -> val);//root
+        }
+    }
+    vector<int> postorderTraversal(TreeNode* root) {
+        helper(root);
+        return v;
+    }
+};
+
+iteration
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> v;
+        if(root == NULL) return v;
+        stack<TreeNode*> s1;
+        
+        s1.push(root);
+        while(!s1.empty())
+        {
+            root = s1.top();
+            s1.pop();
+            
+            if(root -> left != NULL)
+            {
+                s1.push(root -> left);
+            }
+            
+            if(root -> right != NULL)
+            {
+                s1.push(root -> right);
+            }
+            v.push_back(root -> val);  
+        }
+        reverse(v.begin(), v.end());
+        return v;
+    }
+};
+...........................................................................................................................................................
+1. Depth First Search (DFS)-recursive
+
+In this strategy, we adopt the depth as the priority, so that one would start from a root and reach down to a leaf, and then back to root to reach another branch.
+
+The DFS strategy can further be distinguished as preorder, inorder, and postorder depending on the relative order among the root node, left node, and right node.
+
+2. Breadth First Search (BFS)-iterations with the queue
+
+We scan through the tree level by level, following the order of height, from top to bottom. The nodes on a higher level would be visited before the ones on the lower levels.
+...........................................................................................................................................................
