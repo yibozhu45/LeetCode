@@ -1,5 +1,5 @@
 How recursive work in a tree:
-1. when function() called, it will do until the base case.
+1. when function() called, it will do until the base case, everything, not only the root -> left.
 
 2.jump back, do one level up the base case
 
