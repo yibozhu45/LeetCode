@@ -1,0 +1,93 @@
+    https://leetcode.com/problems/find-k-closest-elements/discuss/106426/JavaC%2B%2BPython-Binary-Search-O(log(N-K)-%2B-K)
+    vector<int> findClosestElements(vector<int>& A, int k, int x) {
+        int left = 0, right = A.size() - k;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (x - A[mid] > A[mid + k] - x)
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        return vector<int>(A.begin() + left, A.begin() + left + k);
+    }
+.....................................................................................................
+//close but not correct, the error is that x may not the element in array, but in the range of array
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        vector<int> v;
+        int mid, l;
+        mid = l = 0;
+        int r = arr.size() -1;
+        //x not in arr
+        if(x < arr[0])
+        {
+            for(int i = 0; i < k; i++)
+            {
+                v.push_back(arr[i]);
+            }
+            return v;
+        }
+        else if(x > arr[arr.size() -1])
+        {
+            for(int i = arr.size() -k; i < arr.size(); i++)
+            {
+                v.push_back(arr[i]);
+            }
+            return v;
+        }
+        //x in the arr
+        bool flag = false;
+        while(l < r)
+        {
+            mid = (r-l)/2 +l;
+            
+            if(arr[mid] < x)
+            {
+                l = mid + 1;
+            }
+            else if(arr[mid] == x)
+            {
+                flag = true;
+                break;
+            }
+            else
+            {
+                r = mid;
+            }
+        }
+        
+        if(flag)
+        {
+          l = r = mid;  
+        }
+        else
+        {
+            mid = r;
+        }
+        
+        while(r -l +1 < k)
+        {
+            if(r < arr.size() -1)
+            {
+                r++;
+            }
+            else if(l > 0)
+            {
+                l--;
+            }
+        }
+        
+        if(mid - l < r - mid && l -1 >= 0)
+        {
+            l = l -1;
+            r = r -1;
+        }
+        //push result in new array;
+        for(l; l <= r; l++)
+        {
+            v.push_back(arr[l]);
+        }
+        return v;
+    }
+};
