@@ -1,0 +1,8 @@
+Binary Search:
+It describes the process of searching for a specific value in an ordered collection.
+
+1. Target - the value that you are searching for
+2. Index - the current location that you are searching
+3. Left, Right - the indicies from which we use to maintain our search Space
+4. Mid - the index that we use to apply a condition to determine if we should search left or right
+
