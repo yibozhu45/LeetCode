@@ -1,4 +1,8 @@
     https://leetcode.com/problems/find-k-closest-elements/discuss/106426/JavaC%2B%2BPython-Binary-Search-O(log(N-K)-%2B-K)
+    
+    //youtube solution explain
+    https://www.youtube.com/watch?v=3ifFNvdfjyg&t=41s
+    
     vector<int> findClosestElements(vector<int>& A, int k, int x) {
         int left = 0, right = A.size() - k;
         while (left < right) {
