@@ -1,0 +1,46 @@
+Binary Search:
+
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        if (letters.back() <= target) return letters.front();
+        int low = 0, high = letters.size() - 1;
+        //close to target until high = low
+        while (low < high) {
+            auto mid = (high - low) / 2 + low;
+            if (target < letters[mid]) high = mid;
+            else low = mid + 1;
+        }
+        return letters[low];
+    }
+};
+
+2. two pointer:
+
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        if(target < letters[0] || target >= letters[letters.size()-1]) return letters[0];
+        
+        int j = 0;
+        for(int i = 1; i < letters.size(); i++)
+        {
+            if(target >= letters[j] && target < letters[i])
+            {
+                return letters[i];
+            }
+            j++;
+        }
+        return 'A';
+    }
+};
+
+same as:
+
+class Solution {
+    public char nextGreatestLetter(char[] letters, char target) {
+        for (char c: letters)
+            if (c > target) return c;
+        return letters[0];
+    }
+}
