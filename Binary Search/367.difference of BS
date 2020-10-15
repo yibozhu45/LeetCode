@@ -71,3 +71,19 @@ public:
         return false;
     }
 };
+..................................................................................................
+x^2 - num is the diagram of the question, when x ^ 2 = num, problem solved, 
+so question convert to x = (1/2) * (x + num/x)
+if left equal to right. got it.
+
+class Solution {
+  public boolean isPerfectSquare(int num) {
+    if (num < 2) return true;
+
+    long x = num / 2;
+    while (x * x > num) {
+      x = (x + num / x) / 2;
+    }
+    return (x * x == num);
+  }
+}
