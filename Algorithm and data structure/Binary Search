@@ -1,4 +1,7 @@
 Binary Search:
+runtion: O(logn)
+space: O(1)
+
 It describes the process of searching for a specific value in an ordered collection.
 
 1. Target - the value that you are searching for
@@ -34,6 +37,12 @@ Initial Condition: left = 0, right = length-1
 Termination: left > right
 Searching Left: right = mid-1
 Searching Right: left = mid+1
+
+1. Most basic and elementary form of Binary Search
+2. Search Condition can be determined without comparing to the element's neighbors (or use specific elements around it)
+3. No post-processing required because at each step, you are checking to see if the element has been found. If you reach
+the end, then you know the element is not found
+
 ...................................................
 Binary Search Template II
 
