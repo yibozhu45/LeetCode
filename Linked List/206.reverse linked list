@@ -36,6 +36,35 @@ public:
         return cur;
     }
 };
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if((head == NULL)||(head -> next == NULL)) return head;
+        
+        ListNode* f = head ->next;
+        if(f -> next == NULL)
+        {
+            f -> next = head;
+            head -> next = NULL;
+            return f;
+        }
+        else
+        {
+            ListNode* s = f -> next;
+            head -> next = NULL;
+            while(s != NULL)
+            {
+                f -> next = head;
+                head = f;
+                f = s;
+                s = s -> next;
+            }
+            f -> next = head;
+            return f;
+        }
+    }
+};
 ................................................................
 Reverse the list iteratively
 class Solution {
