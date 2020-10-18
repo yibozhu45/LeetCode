@@ -3,3 +3,37 @@ A recursive function should have the following properties so that it does not re
 1. A simple base case (or cases) — a terminating scenario that does not use recursion to produce an answer.
 2. A set of rules, also known as recurrence relation that reduces all other cases towards the base case.
 
+In this article we will look closer into the duplicate calculations problem that could happen with recursion.
+We will then propose a common technique called memoization that can be used to avoid this problem.
+
+To eliminate the duplicate calculation in the above case, as many of you would have figured out, 
+one of the ideas would be to store the intermediate results in the cache so that we could reuse them later without re-calculation.
+
+Memoization is an optimization technique used primarily to speed up computer programs by storing the results of expensive function
+calls and returning the cached result when the same inputs occur again. 
+
+Back to our Fibonacci function F(n). We could use a hash table to keep track of the result of each F(n) with n as the key. The hash
+table serves as a cache that saves us from duplicate calculations. The memoization technique is a good example that demonstrates 
+how one can reduce compute time in exchange for some additional space.
+
+import java.util.HashMap;
+
+public class Main {
+
+  HashMap<Integer, Integer> cache = new HashMap<Integer, Integer>();
+
+  private int fib(int N) {
+    if (cache.containsKey(N)) {
+      return cache.get(N);
+    }
+    int result;
+    if (N < 2) {
+      result = N;
+    } else {
+      result = fib(N-1) + fib(N-2);
+    }
+    // keep the result in cache.
+    cache.put(N, result);
+    return result;
+  }
+}
