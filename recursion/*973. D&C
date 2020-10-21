@@ -1,0 +1,146 @@
+1. sort
+
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+        int size = points.size();
+        vector<int> dists;
+        for(int i = 0; i < size; i++)
+        {
+            dists.push_back(points[i][0] * points[i][0] + points[i][1] * points[i][1]);
+        }
+        sort(dists.begin(), dists.end());
+        
+        int distK = dists[K -1];
+        
+        vector<vector<int>> ans;
+        for(int i = 0; i < size; i++)
+        {
+            if((points[i][0] * points[i][0] + points[i][1] * points[i][1]) <= distK )
+            {
+                ans.push_back(points[i]);
+            }
+        }
+        return ans;
+    }
+};
+
+partical sort
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+        partial_sort(points.begin(), points.begin() + K, points.end(), [](vector<int>& p, vector<int>& q) {
+            return p[0] * p[0] + p[1] * p[1] < q[0] * q[0] + q[1] * q[1];
+        });
+        return vector<vector<int>>(points.begin(), points.begin() + K);
+    }
+};
+
+nth_element
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+        nth_element(points.begin(), points.begin() + K - 1, points.end(), [](vector<int>& p, vector<int>& q) {
+            return p[0] * p[0] + p[1] * p[1] < q[0] * q[0] + q[1] * q[1];
+        });
+        return vector<vector<int>>(points.begin(), points.begin() + K);
+    }
+};
+.......................................................................................
+
+2. Heap sort
+it can maintain k elements in order, push/pop is O(log(k))
+
+time complexity: O(n * log(k))
+space complexity: O(k)
+
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+        priority_queue<vector<int>, vector<vector<int>>, compare> pq;
+        for (vector<int>& point : points) {
+            pq.push(point);
+            if (pq.size() > K) {
+                pq.pop();
+            }
+        }
+        vector<vector<int>> ans;
+        while (!pq.empty()) {
+            ans.push_back(pq.top());
+            pq.pop();
+        }
+        return ans;
+    }
+private:
+    struct compare {
+        bool operator()(vector<int>& p, vector<int>& q) {
+            return p[0] * p[0] + p[1] * p[1] < q[0] * q[0] + q[1] * q[1];
+        }
+    };
+};
+
+
+......................................................................................
+
+3. quick sort
+
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+        int l = 0, r = points.size() -1;
+        while(true)
+        {
+            int p = partition(points, l, r);//p is index
+            if(p == K -1)//got it
+            {
+                break;
+            }
+            if(p < K -1)//keep finding at right side
+            {
+                l = p + 1;
+            }
+            if(p > K -1)//keep finding at left side
+            {
+                r = p -1;
+            }
+        }
+        return vector<vector<int>>(points.begin(), points.begin() + K);
+    }
+    
+    bool farther(vector<int>& p, vector<int>& q)
+    {
+        return p[0] * p[0] + p[1] * p[1] > q[0] * q[0] + q[1] * q[1];
+    }
+    
+    bool closer(vector<int>& p, vector<int>& q)
+    {
+        return p[0] * p[0] + p[1] * p[1] < q[0] * q[0] + q[1] * q[1];
+    }
+    
+    int partition(vector<vector<int>>& points, int left, int right)
+    {
+        //choose head
+        int pivot = left, l = left + 1, r = right;
+        
+        while(l <= r)
+        {
+            if(farther(points[l], points[pivot]) && closer(points[r], points[pivot]))
+            {
+                swap(points[l++], points[r--]);
+            }
+            //l is less than pivot
+            if(!farther(points[l], points[pivot]))
+            {
+                l++;
+            }
+            //r is bigger than pivot
+            if(!closer(points[r], points[pivot]))
+            {
+                r--;
+            }
+        }
+        //swap pivot to middle
+        swap(points[pivot], points[r]);
+        return r;
+    }
+};
