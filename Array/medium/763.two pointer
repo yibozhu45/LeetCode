@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> partitionLabels(string S) {
+        vector<int> last(26, 0);
+        for(int i = 0; i < S.size(); i++)
+        {
+            last[S[i] - 'a'] = i;
+        }
+        
+        vector<int> res;
+        int index = INT_MIN;
+        int last_i = 0;
+        for(int i = 0; i < S.size(); i++)
+        {
+            int p = last[S[i] - 'a'];
+            if(p > index)
+            {
+                index = p;
+            }
+            //this part！
+            if(i == index)//got one
+            {
+                res.push_back(i - last_i + 1);
+                index = INT_MIN;
+                last_i = i + 1;
+            }
+        }
+        
+        return res;
+    }
+};
