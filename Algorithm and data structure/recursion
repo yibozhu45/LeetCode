@@ -103,3 +103,102 @@ A tail recursion function can be executed as non-tail-recursion functions, i.e. 
 
 3. When stack overflows, tail recursion might come to help. 
 
+
+.......................................................................................................
+
+*******************************************************************************************************
+
+.......................................................................................................
+
+Recursion II
+
+In particular, we will cover some paradigms that are often applied together with the recursion to solve some problems.
+1. Divide and Conquer
+2. Backtracking
+3. master theorem
+
+A divide-and-conquer algorithm works by recursively breaking the problem down into two or more subproblems of the same
+or related type, until these subproblems become simple enough to be solved directly. Then one combines the results of 
+subproblems to form the final solution.
+
+def divide_and_conquer( S ):
+    # (1). Divide the problem into a set of subproblems.
+    [S1, S2, ... Sn] = divide(S)
+
+    # (2). Solve the subproblem recursively,
+    #   obtain the results of subproblems as [R1, R2... Rn].
+    rets = [divide_and_conquer(Si) for Si in [S1, S2, ... Sn]]
+    [R1, R2,... Rn] = rets
+
+    # (3). combine the results from the subproblems.
+    #   and return the combined result.
+    return combine([R1, R2,... Rn])
+
+1. Merge Sort
+There are two approaches to implement the merge sort algorithm: top down or bottom up. Here, we will explain the top
+down approach as it can be implemented naturally using recursion.
+
+*In the first step, we divide the list into two sublists.  (Divide)
+*Then in the next step, we recursively sort the sublists in the previous step.  (Conquer)
+*Finally we merge the sorted sublists in the above step repeatedly to obtain the final list of sorted elements.  (Combine)
+(Merging two sorted lists can be done in linear time complexity O(N), where N is the total lengths of the two lists to merge.)
+
+Top-down Approach
+import java.util.Arrays;
+public class Solution {
+    
+    public int [] merge_sort(int [] input) {
+      if (input.length <= 1) {
+        return input;
+      }
+      int pivot = input.length / 2;
+      int [] left_list = merge_sort(Arrays.copyOfRange(input, 0, pivot));
+      int [] right_list = merge_sort(Arrays.copyOfRange(input, pivot, input.length));
+      return merge(left_list, right_list);
+    }
+    
+    public int [] merge(int [] left_list, int [] right_list) {
+      int [] ret = new int[left_list.length + right_list.length];
+      int left_cursor = 0, right_cursor = 0, ret_cursor = 0;
+
+      while (left_cursor < left_list.length && 
+             right_cursor < right_list.length) {
+        if (left_list[left_cursor] < right_list[right_cursor]) {
+          ret[ret_cursor++] = left_list[left_cursor++];
+        } else {
+          ret[ret_cursor++] = right_list[right_cursor++];
+        }
+      }
+      // append what is remain the above lists
+      while (left_cursor < left_list.length) {
+        ret[ret_cursor++] = left_list[left_cursor++];
+      }
+      while (right_cursor < right_list.length) {
+        ret[ret_cursor++] = right_list[right_cursor++];
+      }  
+      return ret;
+    }
+}
+
+Bottom-up Approach
+In the bottom up approach, we divide the list into sublists of a single element at the beginning. 
+Each of the sublists is then sorted already. Then from this point on, we merge the sublists two 
+at a time until a single list remains.
+
+Complexity
+The overall time complexity of the merge sort algorithm is O(NlogN), where N is the length of the 
+input list. To calculate the complexity, we break it down to the following steps:
+
+1. We recursively divide the input list into two sublists, until a sublist with single element remains. 
+This dividing step computes the midpoint of each of the sublists, which takes O(1) time. This step is
+repeated N times until a single element remains, therefore the total time complexity is O(N).
+ 
+2. Then, we repetitively merge the sublists, until one single list remains. As shown in the recursion tree, 
+there are a total of N elements on each level. Therefore, it takes O(N) time for the merging process to 
+complete on each level. And since there are a total of logN levels, the overall complexity of the merge
+process is O(NlogN).
+
+
+
+
+
