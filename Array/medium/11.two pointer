@@ -1,0 +1,59 @@
+Brute force:(Time Limit Exceeded)
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int area = INT_MIN;
+        for(int i = 0; i < height.size(); i++)
+        {
+            for(int j = i + 1; j < height.size(); j++)
+            {
+                int sum = 0;
+                if(height[i] > height[j])
+                {
+                    sum = height[j] * (j-i);
+                }
+                else
+                {
+                    sum = height[i] * (j-i);
+                }
+                if(sum > area)
+                {
+                    area = sum;
+                }   
+            }
+        }
+        return area;
+    }
+};
+
+........................................................
+
+Two Pointer
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int area = INT_MIN;
+        int l = 0, r = height.size() -1;
+        while(l < r)
+        {
+            int sum = 0;
+            if(height[l] > height[r])
+            {
+                sum = height[r] * (r-l);
+                r--;
+            }
+            else
+            {
+                sum = height[l] * (r-l);
+                l++;
+            }
+            if(sum > area)
+            {
+                area = sum;
+            }  
+        }
+        return area;
+    }
+};
