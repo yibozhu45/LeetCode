@@ -1,0 +1,57 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> l;
+        vector<int> r (nums.size(), 0);
+        int ans = 1;
+        l.push_back(1);
+        for(int i = 1; i < nums.size(); i++)
+        {
+            ans *= nums[i-1];
+            l.push_back(ans);
+        }
+        
+        ans = 1;
+        r[nums.size() -1] = 1;
+        for(int i = r.size() -2; i>=0; i--)
+        {
+            ans*=nums[i + 1];
+            r[i] = ans;
+        }
+        
+        for(int i = 0; i < l.size(); i++)
+        {
+            l[i] = l[i]*r[i];
+        }
+        return l;
+    }
+};
+Time complexity : O(N) where NN represents the number of elements in the input array. We use one iteration
+to construct the array LL, one to construct the array RR and one last to construct the answeranswer array using LL and RR.
+
+Space complexity : O(N) used up by the two intermediate arrays that we constructed to keep track of product of elements to the left and right.
+.......................................................
+
+O(1) space approach
+
+answer[]'s space complexity won't be considered inside the problem
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int product=1;
+        int n=nums.size();
+        vector<int>res(n,1);
+        for(int i=1;i<n;i++){
+            product*=nums[i-1];
+            res[i]*=product;
+        }
+        product=1;
+        for(int i=n-2;i>=0;i--){
+            product*=nums[i+1];
+            res[i]*=product;
+        }
+        return res;
+        
+    }
+};
