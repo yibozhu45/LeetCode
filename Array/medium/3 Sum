@@ -100,3 +100,37 @@ public:
     }
 };
 ...........................................................................
+
+611. Valid Triangle Number
+
+sort in decreasing order
+
+class Solution {
+public:
+    int triangleNumber(vector<int>& nums) {
+        sort(nums.begin(), nums.end(), greater<int>());
+        if(nums.size() < 3) return 0;
+        
+        int l, r;
+        int count = 0;
+        
+        for(int i = 0; i < nums.size() -2; i++)
+        {
+            l = i + 1;
+            r = nums.size() -1;
+            while(l < r)
+            {
+                if(nums[r] + nums[l] > nums[i])
+                {
+                    count += r - l;
+                    l++;
+                }
+                else
+                {
+                    r--;
+                }
+            }
+        }
+        return count;
+    }
+};
