@@ -1,0 +1,102 @@
+16. 3Sum Closest
+
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        int lo, hi;
+        int dif = INT_MAX;
+        int S = 0;
+        for(int i = 0; i < nums.size() -2; i++)
+        {
+            lo = i + 1;
+            hi = nums.size() -1;
+            while(lo < hi)
+            {
+                int sum = nums[i] + nums[lo] + nums[hi];
+                if(abs(sum - target) < dif)
+                {
+                    dif = abs(sum - target);
+                    S = sum;
+                }
+                
+                if(sum < target)
+                {
+                    lo++;
+                }
+                else if(sum == target)
+                {
+                    return sum;
+                }
+                else
+                {
+                    hi--;
+                }
+            }
+        }
+        return S;
+    }
+};
+.................................................
+15. 3Sum
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(begin(nums), end(nums));
+        vector<vector<int>> res;
+        for (int i = 0; i < nums.size() && nums[i] <= 0; ++i)
+            if (i == 0 || nums[i - 1] != nums[i]) {
+                twoSumII(nums, i, res);
+            }
+        return res;
+    }
+    void twoSumII(vector<int>& nums, int i, vector<vector<int>> &res) {
+        int lo = i + 1, hi = nums.size() - 1;
+        while (lo < hi) {
+            int sum = nums[i] + nums[lo] + nums[hi];
+            if (sum < 0) {
+                ++lo;
+            } else if (sum > 0) {
+                --hi;
+            } else {
+                res.push_back({ nums[i], nums[lo++], nums[hi--] });
+                while (lo < hi && nums[lo] == nums[lo - 1])
+                    ++lo;
+            }
+        }
+    }
+};
+.........................................................................
+259. 3Sum Smaller
+
+class Solution {
+public:
+    int threeSumSmaller(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        int lo, hi;
+        int count = 0;
+        if(nums.size() < 3) return 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            lo = i + 1;
+            hi = nums.size() -1;
+            while(lo < hi)
+            {
+                int sum = nums[i] + nums[lo] + nums[hi];
+                if(sum < target)
+                {
+                    //if first around is fit, then all the others are fit
+                    count += hi -lo;
+                    lo++;
+                }
+                else
+                {
+                    hi--;
+                }
+            }
+        }
+        return count;
+    }
+};
+...........................................................................
