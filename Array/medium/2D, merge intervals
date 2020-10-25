@@ -67,6 +67,10 @@ public:
 
 *different way to write compare*
 
+if two intervals are overlapping, we want to remove the interval that has the longer
+end point -- the longer interval will always overlap with more or the same number of
+future intervals compared to the shorter one
+
 bool comp(vector<int> &a,vector<int> &b) {
 	return a[1]<b[1];
 }
