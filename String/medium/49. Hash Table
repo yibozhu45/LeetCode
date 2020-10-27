@@ -105,4 +105,32 @@ private:
         return t;
     }
 };
+...............
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> m;
+        for (auto& s : strs) {
+            int f[26] = {0};
+            for (auto c : s) {
+                f[c-'a']++;
+            }
+            //sorted word
+            string encoded = "";
+            for (int i = 0; i < 26; ++i) {
+                
+                while (f[i]--)
+                    encoded += ('a'+i);
+                
+                
+            }
+            
+            m[encoded].push_back(s);
+        }
+        vector<vector<string>> res;
+        for (auto& v : m) res.push_back(v.second);
+        return res;
+    }
+};
 
