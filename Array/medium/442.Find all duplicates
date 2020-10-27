@@ -1,0 +1,70 @@
+Approach 1: Brute Force 
+Time complexity O(n^2)
+space O(1)--only ans array
+
+Approach 2: Sort and Compare Adjacent Elements
+
+Approach 3: Store Seen Elements in a Set / Map
+
+Approach 4: Mark Visited Elements in the Input Array itself
+(-) * (-) = +
+
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> ans;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            int index = abs(nums[i]) -1;
+            nums[index] *= -1;
+        }
+        
+        for(int i = 0; i < nums.size(); i++)
+        {
+            int index = abs(nums[i]) -1;
+            if(nums[index] > 0)
+            {
+                ans.push_back(abs(nums[i]));
+                //skip duplicate
+                nums[index] *= -1;
+            }
+        }
+        return ans;
+    }
+};
+
+class Solution {
+ public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> ans;
+
+        for (auto num : nums)
+            nums[abs(num) - 1] *= -1;
+
+        for (auto num : nums)
+            if (nums[abs(num) - 1] > 0) {
+                ans.push_back(abs(num));
+                nums[abs(num) - 1] *= -1;
+            }
+
+        return ans;
+    }
+};
+....................................................
+in one loop
+
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> ans;
+        for(auto num : nums)
+        {
+            if(nums[abs(num) -1] < 0)
+            {
+                ans.push_back(abs(num));
+            }
+            nums[abs(num) -1] *= -1;
+        }
+        return ans;
+    }
+};
