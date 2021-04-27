@@ -1,0 +1,156 @@
+1. Map
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head == NULL) return head;
+        map<int, int> mp;
+        
+        for(ListNode* cur = head; cur != NULL; cur = cur -> next)
+        {
+            mp[cur -> val]++;
+        }
+        ListNode* res = new ListNode(0);
+        ListNode* temp = res;
+        for(auto it : mp)
+        {
+            if(it.second == 1)
+            {
+                ListNode* cur = new ListNode(it.first);
+                temp -> next = cur;
+                temp = temp ->next;
+            }
+        }
+        
+        return res -> next;
+    }
+};
+..................................................................
+2.build a new linked list
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head == NULL) return head;
+        ListNode* res = new ListNode(0);
+        ListNode* cur = res;
+        
+        int count = 1;
+        ListNode* i = head;
+        for(ListNode* j = i -> next; j != NULL; j = j -> next)
+        {
+            if(i -> val != j -> val && count == 1)
+            {
+                ListNode* temp = new ListNode(i -> val);
+                cur -> next = temp;
+                cur = cur -> next;
+                
+                //handle i 
+                i = j;
+                count = 1;
+            }
+            
+            else if(i -> val != j -> val && count != 1)
+            {
+                i = j;
+                count = 1;
+            }
+            else
+            {
+                count++;
+            }
+        }
+        
+        if(count == 1)
+        {
+            ListNode* temp = new ListNode(i -> val);
+            cur -> next = temp;
+        }
+        
+        return res->next;
+    }
+};
+................................................................
+3. Sentinel Head + Predecessor
+
+Java
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        // sentinel
+        ListNode sentinel = new ListNode(0, head);
+
+        // predecessor = the last node 
+        // before the sublist of duplicates
+        ListNode pred = sentinel;
+        
+        while (head != null) {
+            // if it's a beginning of duplicates sublist 
+            // skip all duplicates
+            if (head.next != null && head.val == head.next.val) {
+                // move till the end of duplicates sublist
+                while (head.next != null && head.val == head.next.val) {
+                    head = head.next;    
+                }
+                // skip all duplicates
+                pred.next = head.next;     
+            // otherwise, move predecessor
+            } else {
+                pred = pred.next;    
+            }
+                
+            // move forward
+            head = head.next;    
+        }  
+        return sentinel.next;
+    }
+}
+
+C++
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* sentinel = new ListNode(0);    
+        sentinel -> next = head;
+        
+        ListNode* pred = sentinel;
+        
+        while(head != NULL)
+        {
+            if(head -> next != NULL && head -> val == head -> next -> val){
+            while(head -> next != NULL && head -> val == head -> next -> val)
+            {
+                head = head -> next;
+            } 
+                pred->next = head -> next;
+            }
+            else
+            {
+                pred = pred -> next;
+            }
+            
+            head = head -> next;
+        }
+        return sentinel->next;
+    }
+};
